@@ -34,7 +34,7 @@ data_csv = data_csv.drop(data_csv.columns[[0]], axis=1)
 
 
 # VYBER STLPCA, pre ktory chceme robit predikciu
-bergen_data = data_csv[['Hours','FI']]
+bergen_data = data_csv[['Hours','Bergen']]
 
 
 # Plotts
@@ -77,53 +77,60 @@ cA, cD = pywt.dwt(X,w) # single level decomposition
 # print(cA)
 
 ## GARCH
-model = pf.GARCH(cD,p=0,q=1)
+
+model=arch_model(bergen_data['Bergen'], vol='Garch', p=1, o=0, q=1, dist='Normal')
+results=model.fit()
+print(results.summary())
+
+model = pf.GARCH(cD,p=1,q=1)
 x = model.fit()
-print(x.summary())
-radCD1 = model.predict(h=len(X)-size+1)
+# print(x.summary())
+
+
+# radCD1 = model.predict(h=len(X)-size+1)
+# #
+# # print(radCD1.shape)
+# # print(type(radCD1))
+# # print(radCD1)
 #
-# print(radCD1.shape)
-# print(type(radCD1))
-# print(radCD1)
-
-novy_CD1 = radCD1.as_matrix()
-novy_CD1 = novy_CD1[:,0]
-
+# novy_CD1 = radCD1.as_matrix()
+# novy_CD1 = novy_CD1[:,0]
 #
-# print(novy_CD1.shape)
-# print(type(novy_CD1))
-# print(novy_CD1)
-
-
-## ARIMA
-
-model = pf.ARIMA(data=cA, ar=1, ma=1,integ=0, family=pf.Normal())
-x = model.fit("MLE")
-print(x.summary())
-radcA = model.predict(h = len(X)-size+1, intervals=False)
-
-novy_cA = radcA.as_matrix()
-novy_cA = novy_cA[:,0]
-
-
-# print(novy_cA.shape)
-# print(type(novy_cA))
-# print(novy_cA)
-
-
-# Wavelet reconstruction
-# coefs = cA6, volaco1, volaco2, volaco3,cD4, cD5, cD6 # multidimensional approach
-# print('Po ', pywt.waverec(coefs,'db4'))
-
-prediction = pywt.idwt(novy_cA, novy_CD1, 'db4', 'smooth')
-print('Po ',prediction)
-
-for t in range(len(test)):
-    yhat = prediction[t]
-    obs = test[t]
-    predictions.append(yhat)
-    print('predicted=%f, expected=%f' % (yhat, obs))
-
-error = mean_squared_error(test, predictions)
-print('Test MSE: %.3f' % error)
+# #
+# # print(novy_CD1.shape)
+# # print(type(novy_CD1))
+# # print(novy_CD1)
+#
+#
+# ## ARIMA
+#
+# model = pf.ARIMA(data=cA, ar=1, ma=1,integ=0, family=pf.Normal())
+# x = model.fit("MLE")
+# print(x.summary())
+# radcA = model.predict(h = len(X)-size+1, intervals=False)
+#
+# novy_cA = radcA.as_matrix()
+# novy_cA = novy_cA[:,0]
+#
+#
+# # print(novy_cA.shape)
+# # print(type(novy_cA))
+# # print(novy_cA)
+#
+#
+# # Wavelet reconstruction
+# # coefs = cA6, volaco1, volaco2, volaco3,cD4, cD5, cD6 # multidimensional approach
+# # print('Po ', pywt.waverec(coefs,'db4'))
+#
+# prediction = pywt.idwt(novy_cA, novy_CD1, 'db4', 'smooth')
+# print('Po ',prediction)
+#
+# for t in range(len(test)):
+#     yhat = prediction[t]
+#     obs = test[t]
+#     predictions.append(yhat)
+#     print('predicted=%f, expected=%f' % (yhat, obs))
+#
+# error = mean_squared_error(test, predictions)
+# print('Test MSE: %.3f' % error)
 
