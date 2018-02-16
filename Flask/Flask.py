@@ -5,6 +5,10 @@ from werkzeug.utils import secure_filename
 from flask import send_from_directory
 from os.path import join, dirname, realpath
 import os
+import xlrd
+import numpy as np
+import pandas as pd
+
 
 
 UPLOAD_FOLDER = join(dirname(realpath(__file__)), 'static/uploads')
@@ -40,24 +44,45 @@ def upload_file():
         # check if the post request has the file part
         if 'dataset' not in request.files:
             # flash('No file part')
-            print("dsadsadsadsadsa")
-            return redirect(request.url)
+            print("Something went wrong")
+            # return redirect(request.url)
         file = request.files['dataset']
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
             # flash('No selected file')
             print("No file")
-            return redirect(request.url)
+            # return redirect(request.url)
         if file and allowed_file(file.filename) :
-            print("succsess ty kokot")
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             # return redirect(url_for('uploaded_file',
                       #              filename=filename))
 
+            filename_without_extension, file_extension = os.path.splitext(filename)
+            path_saved_file = os.path.join(app.config['UPLOAD_FOLDER']) + "/" + filename
+
+            ## otvorenie file podla toho, aky extension ma file
+
+            if(file_extension == '.xls' ):
+                data_xls = pd.read_excel(path_saved_file, filename_without_extension, index_col=None)
+                data_xls.to_csv('prices.csv', encoding='utf-8')
+                data_csv = pd.read_csv("prices.csv")
+
+            elif(file_extension == '.csv'):
+                data_csv = pd.read_csv(path_saved_file)
+
+            column_names = list(data_csv.columns.values)
+
+
+            print(column_names)
+            prediction_arima(data_csv)
+
             return render_template('upload.html')
 
+
+def prediction_arima(data_csv):
+    pass
 
 
 if __name__ == '__main__':
