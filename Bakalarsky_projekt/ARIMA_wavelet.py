@@ -12,9 +12,9 @@ from datetime import datetime
 from statsmodels.robust import mad
 
 # PREPARING DATA
-data = xlrd.open_workbook("elspot-prices_2017_hourly_sek.xls")
+data = xlrd.open_workbook("elspot-prices_2018_hourly_eur.xls")
 
-data_xls = pd.read_excel('elspot-prices_2017_hourly_sek.xls', 'elspot-prices_2017_hourly_sek', index_col=None)
+data_xls = pd.read_excel('elspot-prices_2018_hourly_eur.xls', 'elspot-prices_2018_hourly_eur', index_col=None)
 data_xls.to_csv('prices.csv', encoding='utf-8')
 
 
@@ -34,7 +34,7 @@ data_csv = data_csv.drop(data_csv.columns[[0]], axis=1)
 
 
 # VYBER STLPCA, pre ktory chceme robit predikciu
-market = 'Oslo'
+market = 'Bergen'
 data = data_csv[['Hours',market]]
 
 

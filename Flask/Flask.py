@@ -51,8 +51,10 @@ def upload_file():
         # submit a empty part without filename
         if file.filename == '':
             # flash('No selected file')
+            empty_upload = True
             print("No file")
-            # return redirect(request.url)
+            return render_template('index.html' ,empty_upload=True)
+
         if file and allowed_file(file.filename) :
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -74,11 +76,20 @@ def upload_file():
 
             column_names = list(data_csv.columns.values)
 
-
-            print(column_names)
+            #print(column_names)
             prediction_arima(data_csv)
 
-            return render_template('upload.html')
+            return render_template('upload.html', labels = column_names)
+        else:
+            invalid_extension = True
+            return render_template('index.html', invalid_extension = True)
+
+@app.route('/choose', methods=['POST'])
+def predict_label():
+    if request.method == 'POST':
+        print("Vybral som label + ", request.values)
+        return render_template('blank.html')
+
 
 
 def prediction_arima(data_csv):

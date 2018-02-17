@@ -19,21 +19,17 @@
   <div class="text-center text-white opaque-overlay py-5 bg-primary" style="">
     <div class="container">
       <div class="row">
-        <div class="p-4 col-md-3"> <i class="d-block fa fa-3x fa-bar-chart"></i>
+        <div class="p-4 col-md-4"> <i class="d-block fa fa-3x fa-bar-chart"></i>
           <h2 class="my-3">Statistical prediction</h2>
           <p>The future electricity price is predicted by statistical model. This model uses ARIMA statistical method.</p>
         </div>
-        <div class="col-md-3 p-4"> <i class="d-block fa fa-3x fa-th"></i>
+        <div class="col-md-4 p-4"> <i class="d-block fa fa-3x fa-th"></i>
           <h2 class="my-3">Machine learning prediction</h2>
           <p>Artificial neural network is used to predict future electricity prices.&nbsp;&nbsp;</p>
         </div>
-        <div class="col-md-3 p-4"> <i class="d-block fa fa-3x fa-area-chart"></i>
+        <div class="col-md-4 p-4"> <i class="d-block fa fa-3x fa-area-chart"></i>
           <h2 class="my-3">Plots</h2>
           <p>Plots helps better visualize input and output data, find correlaction a many more.</p>
-        </div>
-        <div class="col-md-3 p-4"> <i class="d-block fa fa-3x fa-money"></i>
-          <h2 class="my-3"></h2>
-          <p>Choose settings depending on the criteria you value the most</p>
         </div>
       </div>
     </div>
@@ -44,16 +40,12 @@
         <div class="col-md-12">
           <h1>Upload your dataset
             <br> </h1>
-          <form method="post" enctype="multipart/form-data">
-            <p>
-              <input type="file" name="file"> </p>
-          </form>
-        </div>
-        <div class="">
-          <p class="text-left m-2">
-            <input type="submit" value="Upload"> </p>
-        </div>
-      </div>
+          <form method="post" enctype="multipart/form-data" action="/upload"> <span class="btn btn-default btn-file"><input type="file" class="btn btn-light" name="dataset" style="width:500px">
+              </span>
+            <input type="submit" value="Upload" class="btn btn-light btn-lg"> </form>
+        </div> {% if invalid_extension %}
+        <div class="alert alert-danger" style="margin-top:18px;"> <strong>Error</strong> Your file contains invalid extension! Valid extensions are csv and xls files! </div> {% endif %} {% if empty_upload %}
+        <div class="alert alert-danger" style="margin-top:18px;"> <strong>Error</strong> No selected file! </div> {% endif %} </div>
     </div>
   </div>
   <div class="py-5 bg-dark text-white">
@@ -63,7 +55,7 @@
       </div>
       <div class="row">
         <div class="col-md-12 mt-3 text-center">
-          <p>© Copyright 2017 Michal Ostrodický - All rights reserved.</p>
+          <p>© Copyright 2018 Michal Ostrodický - All rights reserved.</p>
         </div>
       </div>
     </div>
