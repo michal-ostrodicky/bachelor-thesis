@@ -10,9 +10,9 @@ from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 
 # PREPARING DATA
-data = xlrd.open_workbook("elspot-prices_2017_hourly_sek.xls")
+data = xlrd.open_workbook("elspot-prices_2018_hourly_eur.xls")
 
-data_xls = pd.read_excel('elspot-prices_2017_hourly_sek.xls', 'elspot-prices_2017_hourly_sek', index_col=None)
+data_xls = pd.read_excel('elspot-prices_2018_hourly_eur.xls', 'elspot-prices_2018_hourly_eur', index_col=None)
 data_xls.to_csv('prices.csv', encoding='utf-8')
 
 
@@ -50,8 +50,6 @@ bergen_data = data_csv[['Hours','Oslo']]
 X = bergen_data['Oslo'].values
 size = int(len(X) * 0.66)
 
-print('Dlzka dat je ', len(X))
-print('Size je ', size)
 
 train, test = X[0:size], X[size:len(X)]
 history = [x for x in train]
