@@ -4,15 +4,13 @@ import pywt
 import xlrd
 import pyflux as pf
 from arch import arch_model
-import seaborn as sns
 from statsmodels.tsa.arima_model import ARIMA
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
-from datetime import datetime
 from statsmodels.robust import mad
 
 # PREPARING DATA
-data = xlrd.open_workbook("elspot-prices_2018_hourly_eur.xls")
+# data = xlrd.open_workbook("elspot-prices_2018_hourly_eur.xls")
 
 data_xls = pd.read_excel('elspot-prices_2018_hourly_eur.xls', 'elspot-prices_2018_hourly_eur', index_col=None)
 data_xls.to_csv('prices.csv', encoding='utf-8')
@@ -39,7 +37,7 @@ data = data_csv[['Hours',market]]
 
 
 
-# Plotts
+# Plots
 data.index = data_csv['Hours'].values
 plt.figure(figsize=(18,9))
 plt.plot(data.index,data[market])
@@ -56,10 +54,13 @@ size = int(len(data[market].values) * 0.66)
 # datum = data[size:len(data['Bergen'].values)]
 # datum = datum['Hours']
 
-datum2 = data_csv['Hours'][size:len(data[market].values)].values
-datum = datum2
 
+datum = data_csv['Hours'][size:len(data[market].values)].values
 
+'''
+    Funkcia na zjemnenie casoveho radu
+    
+'''
 def waveletSmooth( x, wavelet="db4", level=1, title=None ):
     # calculate the wavelet coefficients
     coeff = pywt.wavedec( x, wavelet, mode="per" )
@@ -72,8 +73,13 @@ def waveletSmooth( x, wavelet="db4", level=1, title=None ):
     # reconstruct the signal using the thresholded coefficients
     X = pywt.waverec( coeff, wavelet, mode="per" )
 
-    size = int(len(X) * 0.66)
+    return X
 
+'''
+    Predikcia cien pomocou ARIMA, 
+    pouziva sa rolling prediction, v ktorom si 
+'''
+def prediction_arima(X):
     train, test = X[0:size], X[size:len(X)]
     history = [x for x in train]
     predictions = list()
@@ -83,17 +89,17 @@ def waveletSmooth( x, wavelet="db4", level=1, title=None ):
         model = ARIMA(history, order=(3, 1, 0))
         model_fit = model.fit(disp=0)
         output = model_fit.forecast()
-        yhat = output[0]
-        predictions.append(yhat)
-        obs = test[t]
-        history.append(obs)
+        predicted_value = output[0]
+        predictions.append(predicted_value)
+        observation = test[t]
+        history.append(observation)
         # print('predicted=%f, expected=%f' % (yhat, obs))
 
     error = mean_squared_error(test, predictions)
     print('Test MSE: %.3f' % error)
 
     plotting_frame = pd.DataFrame(predictions)
-    plotting_frame.index = datum2
+    plotting_frame.index = datum
 
 
     plt.figure(figsize=(18, 9))
@@ -108,15 +114,11 @@ def waveletSmooth( x, wavelet="db4", level=1, title=None ):
     plt.show()
 
 
+data[market] = waveletSmooth(data[market].values)
+prediction_arima(data[market].values)
 
-waveletSmooth(data[market].values)
 
-def plotFigure(data_plot,file_name,order):
-    fig = plt.figure(order, figsize=(9, 6))
-    ax = fig.add_subplot(111)
-    bp = ax.boxplot(data_plot)
-    fig.savefig(file_name, bbox_inches='tight')
-    plt.close()
+
 
 # X = data[market].values
 # print(len(X))

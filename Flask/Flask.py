@@ -5,7 +5,6 @@ from werkzeug.utils import secure_filename
 from flask import send_from_directory
 from os.path import join, dirname, realpath
 import os
-import xlrd
 import numpy as np
 import pandas as pd
 
@@ -41,18 +40,16 @@ def allowed_file(filename):
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
+
         # check if the post request has the file part
         if 'dataset' not in request.files:
-            # flash('No file part')
             print("Something went wrong")
             # return redirect(request.url)
         file = request.files['dataset']
         # if user does not select file, browser also
         # submit a empty part without filename
+
         if file.filename == '':
-            # flash('No selected file')
-            empty_upload = True
-            print("No file")
             return render_template('index.html' ,empty_upload=True)
 
         if file and allowed_file(file.filename) :
@@ -81,7 +78,6 @@ def upload_file():
 
             return render_template('upload.html', labels = column_names)
         else:
-            invalid_extension = True
             return render_template('index.html', invalid_extension = True)
 
 @app.route('/choose', methods=['POST'])

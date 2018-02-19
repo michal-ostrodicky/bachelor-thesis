@@ -6,5 +6,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="tensorExample" />
     <orderEntry type="module" module-name="Flask" />
+    <orderEntry type="module" module-name="IAU" />
   </component>
 </module>
