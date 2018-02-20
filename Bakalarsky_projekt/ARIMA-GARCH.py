@@ -10,8 +10,9 @@ import matplotlib.pyplot as plt
 from statsmodels.robust import mad
 import statsmodels.api as sm
 import seaborn as sns
+import scipy.stats as scs
+import statsmodels.tsa.api as smt
 sns.set(color_codes=True)
-
 
 
 '''
@@ -43,9 +44,10 @@ def prediction_arima(X):
     predictions = list()
 
     for t in range(len(test)):
-        model = ARIMA(history, order=(1, 1, 0))
+        model = ARIMA(history, order=(3, 1, 0))
         model_fit = model.fit(disp=0)
         output = model_fit.forecast()
+
         predicted_value = output[0]
         predictions.append(predicted_value)
         observation = test[t]
@@ -69,13 +71,60 @@ def prediction_arima(X):
     plt.grid(which='major', axis='both', linestyle='--')
     plt.show()
 
+def _get_best_model(TS):
+    best_aic = np.inf
+    best_order = None
+    best_mdl = None
+
+    pq_rng = range(5) # [0,1,2,3,4]
+    q_rng = range(5) # [0,1]
+    for i in pq_rng:
+        for j in pq_rng:
+            try:
+                tmp_mdl = ARIMA(TS, order=(i,1,j)).fit(
+                    method='mle', trend='nc'
+                )
+                tmp_aic = tmp_mdl.aic
+
+                if tmp_aic < best_aic:
+                    best_aic = tmp_aic
+                    best_order = (i, 1, j)
+                    best_mdl = tmp_mdl
+            except: continue
+    #print('aic: {:6.5f} | order: {}'.format(best_aic, best_order))
+    return best_aic, best_order, best_mdl
 
 
+def tsplot(y, lags=None, figsize=(15, 8), style='bmh'):
+    if not isinstance(y, pd.Series):
+        y = pd.Series(y)
+    with plt.style.context(style):
+        fig = plt.figure(figsize=figsize)
+        # mpl.rcParams['font.family'] = 'Ubuntu Mono'
+        layout = (3, 2)
+        ts_ax = plt.subplot2grid(layout, (0, 0), colspan=2)
+        # y.index = data_csv['Hours'].values
+        acf_ax = plt.subplot2grid(layout, (1, 0))
+        pacf_ax = plt.subplot2grid(layout, (1, 1))
+        # qq_ax = plt.subplot2grid(layout, (2, 0))
+        # pp_ax = plt.subplot2grid(layout, (2, 1))
+
+        y.plot(ax=ts_ax)
+        ts_ax.set_title('Time Series Analysis Plots')
+        smt.graphics.plot_acf(y, lags=lags, ax=acf_ax, alpha=0.05)
+        smt.graphics.plot_pacf(y, lags=lags, ax=pacf_ax, alpha=0.05)
+        # sm.qqplot(y, line='s', ax=qq_ax)
+        # qq_ax.set_title('QQ Plot')
+        # scs.probplot(y, sparams=(y.mean(), y.std()), plot=pp_ax)
+
+        plt.tight_layout()
+        plt.show()
+    return
 
 # PREPARING DATA
-data = xlrd.open_workbook("elspot-prices_2018_hourly_sek.xls")
+# data = xlrd.open_workbook("elspot-prices_2018_hourly_eur.xls")
 
-data_xls = pd.read_excel("elspot-prices_2018_hourly_eur.xls", 'elspot-prices_2018_hourly_eur', index_col=None)
+data_xls = pd.read_excel('elspot-prices_2018_hourly_eur.xls', 'elspot-prices_2018_hourly_eur', index_col=None)
 data_xls.to_csv('prices.csv', encoding='utf-8')
 
 
@@ -101,38 +150,44 @@ data = data_csv
 # sns.distplot(data[market]);
 
 # Plots
-data.index = data_csv['Hours'].values
-plt.figure(figsize=(18,9))
-plt.plot(data.index,data[market])
-plt.legend(loc='upper right')
-plt.ylabel('Price')
-plt.xlabel('Date')
-plt.title('Price of electricity');
-plt.legend(loc='upper right')
-plt.grid(which='major', axis='both', linestyle='--')
-plt.show()
+# data.index = data_csv['Hours'].values
+# plt.figure(figsize=(18,9))
+# plt.plot(data.index,data[market])
+# plt.legend(loc='upper right')
+# plt.ylabel('Price')
+# plt.xlabel('Date')
+# plt.title('Price of electricity');
+# plt.legend(loc='upper right')
+# plt.grid(which='major', axis='both', linestyle='--')
+# plt.show()
 
-
-fig = plt.figure(figsize=(12,8))
-ax1 = fig.add_subplot(211)
-fig = sm.graphics.tsa.plot_acf(data[market], lags=40, ax=ax1)
-ax2 = fig.add_subplot(212)
-fig = sm.graphics.tsa.plot_pacf(data[market], lags=40, ax=ax2)
-plt.show()
+#
+# fig = plt.figure(figsize=(12,8))
+# ax1 = fig.add_subplot(211)
+# fig = sm.graphics.tsa.plot_acf(data[market], lags=40, ax=ax1)
+# ax2 = fig.add_subplot(212)
+# fig = sm.graphics.tsa.plot_pacf(data[market], lags=40, ax=ax2)
+# plt.show()
 
 ## ADF statistic If the value is larger than the critical values, again,
 # meaning that we can accept the null hypothesis and in turn that the time series is non-stationary
+# print("Fuller test stacionarity test: ",sm.tsa.stattools.adfuller(data[market]))
 
-print("Fuller test stacionarity test: ",sm.tsa.stattools.adfuller(data[market]))
-
-
+# tsplot(data[market],lags=30)
 size = int(len(data[market].values) * 0.66)
-datum = data_csv['Hours'][size:len(data[market].values)].values
+datum = data_csv['Hours'][size:len(data[market])].values
 
 
 
 data[market] = waveletSmooth(data[market].values)
-prediction_arima(data[market].values)
+res_tup = _get_best_model(data[market].values)
+print(res_tup)
+# prediction_arima(data[market].values)
+# order = res_tup[1]
+# model = res_tup[2]
 
+# p_ = order[0]
+# o_ = order[1]
+# q_ = order[2]
 
-
+# print("p_ %d o_%d q_ %d", p_,o_,q_)

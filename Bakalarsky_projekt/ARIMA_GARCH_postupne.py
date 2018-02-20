@@ -60,7 +60,7 @@ w = pywt.Wavelet('db4')
 
 for t in range(len(test)):
     cA, cD = pywt.dwt(history, w)
-    model = pf.GARCH(cD, p=0, q=1)
+    model = pf.GARCH(cD, p=1, q=1)
     x = model.fit()
     # print(x.summary())
     radCD1 = model.predict(h=1)
@@ -73,18 +73,23 @@ for t in range(len(test)):
     # print(type(novy_CD1))
     # print(novy_CD1)
 
-    model = pf.ARIMA(data=cA, ar=3, ma=1, integ=0, family=pf.Normal())
-    x = model.fit("MLE")
-    # print(x.summary())
-    radcA = model.predict(h=1, intervals=False)
+
+    model = ARIMA(history, order=(3, 1, 0))
+    model_fit = model.fit(disp=0)
+    output = model_fit.forecast()
+
+    # radcA = model.predict(h=1, intervals=False)
    #  print(radcA)
 
-    novy_cA = radcA.as_matrix()
-    novy_cA = novy_cA[:, 0]
+    # novy_cA = output.as_matrix()
+    # novy_cA = novy_cA[:, 0]
 
     # print(novy_cA.shape)
     # print(type(novy_cA))
     # print(novy_cA)
+    # print(output)
+    #print(type(output))
+    novy_cA = np.asarray(output[0])
 
     z =  pywt.upcoef('a', novy_cA, 'db1')
     zz = pywt.upcoef('d', novy_CD1, 'db1')
@@ -101,7 +106,7 @@ for t in range(len(test)):
     predictions.append(celkovy_vys)
     obs = test[t]
     history = np.append(history,obs)
-    #print('predicted=%f, expected=%f' % (yhat, obs))
+    # print('predicted=%f, expected=%f' % (yhat, obs))
 
 
 error = mean_squared_error(test, predictions)
