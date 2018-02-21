@@ -75,7 +75,7 @@ def prediction_arima(X):
 # PREPARING DATA
 data = xlrd.open_workbook("elspot-prices_2018_hourly_sek.xls")
 
-data_xls = pd.read_excel("elspot-prices_2018_hourly_eur.xls", 'elspot-prices_2018_hourly_eur', index_col=None)
+data_xls = pd.read_excel("elspot-prices_2013_hourly_sek.xls", 'elspot-prices_2013_hourly_sek', index_col=None)
 data_xls.to_csv('prices.csv', encoding='utf-8')
 
 
@@ -115,9 +115,9 @@ plt.show()
 
 fig = plt.figure(figsize=(12,8))
 ax1 = fig.add_subplot(211)
-fig = sm.graphics.tsa.plot_acf(data[market], lags=40, ax=ax1)
+fig = sm.graphics.tsa.plot_acf(data[market], lags=150, ax=ax1)
 ax2 = fig.add_subplot(212)
-fig = sm.graphics.tsa.plot_pacf(data[market], lags=40, ax=ax2)
+fig = sm.graphics.tsa.plot_pacf(data[market], lags=150, ax=ax2)
 plt.show()
 
 ## ADF statistic If the value is larger than the critical values, again,
