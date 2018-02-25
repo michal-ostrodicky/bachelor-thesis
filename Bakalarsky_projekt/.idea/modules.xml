@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Bakalarsky_projekt.iml" filepath="$PROJECT_DIR$/.idea/Bakalarsky_projekt.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Flask/.idea/Flask.iml" filepath="$PROJECT_DIR$/../Flask/.idea/Flask.iml" />
       <module fileurl="file://$PROJECT_DIR$/../IAU/.idea/IAU.iml" filepath="$PROJECT_DIR$/../IAU/.idea/IAU.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../bachelor-thesis/.idea/bachelor-thesis.iml" filepath="$PROJECT_DIR$/../bachelor-thesis/.idea/bachelor-thesis.iml" />
       <module fileurl="file://$PROJECT_DIR$/../tensorExample/.idea/tensorExample.iml" filepath="$PROJECT_DIR$/../tensorExample/.idea/tensorExample.iml" />
     </modules>
   </component>

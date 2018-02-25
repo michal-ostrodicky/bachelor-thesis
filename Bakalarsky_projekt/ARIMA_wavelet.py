@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import pywt
 import xlrd
+from pandas import read_csv
 import pyflux as pf
 from arch import arch_model
 from statsmodels.tsa.arima_model import ARIMA
@@ -10,6 +11,7 @@ import matplotlib.pyplot as plt
 from statsmodels.robust import mad
 import statsmodels.api as sm
 import seaborn as sns
+from math import sqrt
 sns.set(color_codes=True)
 
 
@@ -44,7 +46,7 @@ def prediction_arima(X):
 
     for t in range(len(test)):
         model = ARIMA(history, order=(1, 1, 0))
-        model_fit = model.fit(disp=0)
+        model_fit = model.fit(disp=False)
         output = model_fit.forecast()
         predicted_value = output[0]
         predictions.append(predicted_value)
@@ -52,34 +54,37 @@ def prediction_arima(X):
         history.append(observation)
         # print('predicted=%f, expected=%f' % (yhat, obs))
 
-    error = mean_squared_error(test, predictions)
-    print('Test MSE: %.3f' % error)
+    rmse = sqrt(mean_squared_error(test, predictions))
+    print('Test RMSE: %.3f' % rmse)
 
     # plotting result
-    plotting_frame = pd.DataFrame(predictions)
-    plotting_frame.index = datum
-
-    plt.figure(figsize=(18, 9))
-    plt.ylabel('Price')
-    plt.xlabel('Date')
-    plt.title('Price of electricity');
-    plt.plot(data.index, data[market].values, label=market)
-    plt.plot(plotting_frame.index, plotting_frame, color='red', label='Predicted')
-    plt.legend(loc='upper right')
-    plt.grid(which='major', axis='both', linestyle='--')
-    plt.show()
+    # plotting_frame = pd.DataFrame(predictions)
+    # plotting_frame.index = datum
+    #
+    # plt.figure(figsize=(18, 9))
+    # plt.ylabel('Price')
+    # plt.xlabel('Date')
+    # plt.title('Price of electricity');
+    # plt.plot(data.index, data[market].values, label=market)
+    # plt.plot(plotting_frame.index, plotting_frame, color='red', label='Predicted')
+    # plt.legend(loc='upper right')
+    # plt.grid(which='major', axis='both', linestyle='--')
+    # plt.show()
 
 
 
 
 # PREPARING DATA
-data = xlrd.open_workbook("elspot-prices_2018_hourly_sek.xls")
-
-data_xls = pd.read_excel("elspot-prices_2018_hourly_eur.xls", 'elspot-prices_2018_hourly_eur', index_col=None)
-data_xls.to_csv('prices.csv', encoding='utf-8')
-
-
+# data = xlrd.open_workbook("elspot-prices_2018_hourly_sek.xls")
+#
+# data_xls = pd.read_excel("elspot-prices_2013_hourly_sek.xls", 'elspot-prices_2013_hourly_sek', index_col=None)
+# data_xls.to_csv('prices.csv', encoding='utf-8')
+#
+#
 data_csv = pd.read_csv("prices.csv")
+#data_csv = read_csv('prices.csv', engine='python', skipfooter=1)
+# dataset = data_csv.values
+# dataset = dataset.astype('float32')
 
 # Pridanie hodiny k datumu
 dates = data_csv[data_csv.columns[0:2]]
@@ -115,9 +120,9 @@ plt.show()
 
 fig = plt.figure(figsize=(12,8))
 ax1 = fig.add_subplot(211)
-fig = sm.graphics.tsa.plot_acf(data[market], lags=40, ax=ax1)
+fig = sm.graphics.tsa.plot_acf(data[market], lags=150, ax=ax1)
 ax2 = fig.add_subplot(212)
-fig = sm.graphics.tsa.plot_pacf(data[market], lags=40, ax=ax2)
+fig = sm.graphics.tsa.plot_pacf(data[market], lags=150, ax=ax2)
 plt.show()
 
 ## ADF statistic If the value is larger than the critical values, again,

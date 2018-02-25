@@ -19,34 +19,22 @@ sns.set(color_codes=True)
 
 
 # PREPARING DATA
-data = xlrd.open_workbook("elspot-prices_2018_hourly_sek.xls")
-
-data_xls = pd.read_excel("elspot-prices_2018_hourly_sek.xls", 'elspot-prices_2018_hourly_sek', index_col=None)
+data_xls = pd.read_excel("elspot-prices_2013_hourly_sek.xls", 'elspot-prices_2013_hourly_sek', index_col=None)
 data_xls.to_csv('prices.csv', encoding='utf-8')
 
 
 data_csv = pd.read_csv("prices.csv")
 
 # Pridanie hodiny k datumu
-dates = data_csv[data_csv.columns[0:2]]
-dates.columns = ['Day', 'Hour']
-dates['Hour'] = dates['Hour'].map(lambda x: str(x)[:2])
 
-df = pd.DataFrame(dates)
-df['Period'] = df.Day.astype(str).str.cat(df.Hour.astype(str), sep=' ')
-df['Period'] = pd.to_datetime(df["Period"])
-
-data_csv['Hours'] = df['Period']
-data_csv = data_csv.drop(data_csv.columns[[0]], axis=1)
-
+data = data_csv.drop(data_csv.columns[0:2],1)
 
 # VYBER STLPCA, pre ktory chceme robit predikciu
 market = 'Bergen'
-data = data_csv
-
-data = data.drop(data.columns[0:1],1)
 
 
+# december a november
+# std v januari a porovnat
 n = data.shape[0]
 p = data.shape[1]
 
@@ -76,7 +64,7 @@ X_test = data_test[:, 1:]
 y_test = data_test[:, 0]
 
 
-
+print()
 # Number of stocks in training data
 n_stocks = X_train.shape[1]
 
@@ -145,7 +133,7 @@ mse_train = []
 mse_test = []
 
 # Run
-epochs = 10
+epochs = 20
 for e in range(epochs):
 
     # Shuffle training data
@@ -166,15 +154,15 @@ for e in range(epochs):
             # MSE train and test
             mse_train.append(net.run(mse, feed_dict={X: X_train, Y: y_train}))
             mse_test.append(net.run(mse, feed_dict={X: X_test, Y: y_test}))
-            print('MSE Train: ', mse_train[-1])
-            print('MSE Test: ', mse_test[-1])
+            print('MSE Train: ', mse_train[-1]*100)
+            print('MSE Test: ', mse_test[-1]*100)
             # Prediction
             pred = net.run(out, feed_dict={X: X_test})
             line2.set_ydata(pred)
             plt.title('Epoch ' + str(e) + ', Batch ' + str(i))
             plt.pause(2)
 
-plt.show(block=False)
+plt.show(block=True)
 # sns.distplot(data[market]);
 
 # Plots
