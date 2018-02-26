@@ -45,15 +45,21 @@ def prediction_arima_flask(X,market,size):
     history = [x for x in train]
     predictions = list()
 
-    for t in range(len(test)):
+    t = 0
+
+    while t < len(test):
         model = ARIMA(history, order=(1, 1, 0))
         model_fit = model.fit(disp=0)
-        output = model_fit.forecast()
+        output = model_fit.forecast(24)
         predicted_value = output[0]
-        predictions.append(predicted_value)
-        observation = test[t]
-        history.append(observation)
-        # print('predicted=%f, expected=%f' % (yhat, obs))
+        # print(predicted_value)
+        q = t + 24
+        observation = test[t:q]
+        for i in range(len(observation)):
+            predictions.append(predicted_value[i])
+            history.append(observation[i])
+            # print('predicted=%f, expected=%f' % (predicted_value[i], observation[i]))
+        t = q
 
     rmse = sqrt(mean_squared_error(test, predictions))
     print('Test RMSE: %.3f' % rmse)
@@ -93,7 +99,7 @@ def prediction_arima(X,market,size):
         for i in range(len(observation)):
             predictions.append(predicted_value[i])
             history.append(observation[i])
-
+            # print('predicted=%f, expected=%f' % (predicted_value[i], observation[i]))
         t = q
 
 
@@ -119,7 +125,7 @@ def prediction_arima(X,market,size):
 def main():
     # PREPARING DATA
 
-    data_xls = pd.read_excel("elspot-prices_2018_hourly_sek.xls", 'elspot-prices_2018_hourly_sek', index_col=None)
+    data_xls = pd.read_excel("elspot-prices_2013_hourly_sek.xls", 'elspot-prices_2013_hourly_sek', index_col=None)
     data_xls.to_csv('prices.csv', encoding='utf-8')
 
     data_csv = pd.read_csv("prices.csv")

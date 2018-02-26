@@ -6,17 +6,16 @@ from werkzeug.utils import secure_filename
 from os.path import join, dirname, realpath
 import os
 import pandas as pd
-from statsmodels.tsa.arima_model import ARIMA
-from sklearn.metrics import mean_squared_error
 from ARIMA_wavelet import wavelet_smooth,prediction_arima_flask
 from neural_network import train_network
+import matplotlib.pyplot as plt
+
 
 UPLOAD_FOLDER = join(dirname(realpath(__file__)), 'static/uploads')
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 ALLOWED_EXTENSIONS = set(['xls', 'csv'])
-global data
+global data,market
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -73,85 +72,79 @@ def upload_file():
                 data_csv = pd.read_csv(path_saved_file)
 
             column_names = list(data_csv.columns.values)
-            global data
+            global data,info_data
             data = data_csv
+
             #print(column_names)
-
-
-            return render_template('upload.html', labels = column_names[2:])
+            info_data = [0,0,'','']
+            info_data[0] = data.shape[0]
+            info_data[1] = len(column_names[2:])
+            start_date = data.iat[0,0]
+            end_date = data.iat[data.shape[0]-1,0]
+            info_data[2]= data.iat[0,0]
+            info_data[3] = data.iat[data.shape[0]-1,0]
+            return render_template('upload.html', info =info_data, labels = column_names[2:])
         else:
             return render_template('index.html', invalid_extension = True)
 
-@app.route('/choose', methods=['POST'])
-def predict_label():
-    if request.method == 'POST':
-        myvar = request.form["label_to_predict"]
-        size = int(len(data[myvar].values) * 0.66)
-        data[myvar] = wavelet_smooth(data[myvar].values)
-        mse = prediction_arima_flask(data[myvar].values,myvar,size)
 
-        data_neural = data.drop(data.columns[0:2], 1)
-        print(train_network(data_neural,myvar))
+@app.route('/choose', methods=['POST'])
+def choose_label():
+    if request.method == 'POST':
+        global market
+        market = request.form["label_to_predict"]
+        plot_label(data,market)
+        # plot_filename = os.path.join(app.config['UPLOAD_FOLDER'], market + '.png')
+        # path_saved_file = os.path.join(app.config['UPLOAD_FOLDER']) + "/" + market + '.png'
+        # print(path_saved_file)
+        full_filename = market + '.png'
+        column_names = list(data.columns.values)
+
+
+        return render_template('upload.html', info= info_data, to_predict= market, labels = column_names[2:], uploded_file = True, market_plot = full_filename)
+
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    if request.method == 'POST':
+        bullshit = request.values
+
+        size = int(len(data[market].values) * 0.66)
+        data[market] = wavelet_smooth(data[market].values)
+        mse = prediction_arima_flask(data[market].values,market,size)
+
+        # data_neural = data.drop(data.columns[0:2], 1)
+        # print(train_network(data_neural,market))
         return render_template('blank.html', predik = mse)
 
 
-def handle_file():
-    pass
+def plot_label(data_csv,market):
+    # Pridanie hodiny k datumu
+    dates = data_csv[data_csv.columns[0:2]]
+    dates.columns = ['Day', 'Hour']
+    dates['Hour'] = dates['Hour'].map(lambda x: str(x)[:2])
 
+    df = pd.DataFrame(dates)
+    df['Period'] = df.Day.astype(str).str.cat(df.Hour.astype(str), sep=' ')
+    df['Period'] = pd.to_datetime(df["Period"])
 
-# def prediction_arima(data_csv):
-#     # Pridanie hodiny k datumu
-#
-#     dates = data_csv[data_csv.columns[0:2]]
-#     dates.columns = ['Day', 'Hour']
-#     dates['Hour'] = dates['Hour'].map(lambda x: str(x)[:2])
-#
-#     df = pd.DataFrame(dates)
-#     df['Period'] = df.Day.astype(str).str.cat(df.Hour.astype(str), sep=' ')
-#     df['Period'] = pd.to_datetime(df["Period"])
-#
-#     data_csv['Hours'] = df['Period']
-#     data_csv = data_csv.drop(data_csv.columns[[0]], axis=1)
-#
-#     # VYBER STLPCA, pre ktory chceme robit predikciu
-#     market = 'Bergen'
-#     data = data_csv
-#
-#     size = int(len(data[market].values) * 0.66)
-#     datum = data_csv['Hours'][size:len(data[market].values)].values
-#
-#     data[market] = waveletSmooth(data[market].values)
-#
-#     chyba = predikuj(data[market].values,size)
-#     return chyba
+    data_csv['Hours'] = df['Period']
+    data_csv = data_csv.drop(data_csv.columns[[0]], axis=1)
 
+    # sns.distplot(data[market]);
 
-
-
-
-'''
-    Predikcia cien pomocou ARIMA,
-    pouziva sa rolling prediction, v ktorom si predikovane hdnoty ulozim a postupne porovnavam s
-    testovacimi hodnotami.
-'''
-# def predikuj(X,size):
-#     train, test = X[0:size], X[size:len(X)]
-#     history = [x for x in train]
-#     predictions = list()
-#
-#     for t in range(len(test)):
-#         model = ARIMA(history, order=(1, 1, 0))
-#         model_fit = model.fit(disp=0)
-#         output = model_fit.forecast()
-#         predicted_value = output[0]
-#         predictions.append(predicted_value)
-#         observation = test[t]
-#         history.append(observation)
-#         # print('predicted=%f, expected=%f' % (yhat, obs))
-#
-#     error = mean_squared_error(test, predictions)
-#     print('Test MSE: %.3f' % error)
-#     return error
+    # Plots
+    data.index = data_csv['Hours'].values
+    plt.figure(figsize=(18, 9))
+    plt.plot(data.index, data[market])
+    plt.legend(loc='upper right')
+    plt.ylabel('Price')
+    plt.xlabel('Date')
+    plt.title('Price of electricity');
+    plt.legend(loc='upper right')
+    plt.grid(which='major', axis='both', linestyle='--')
+    plt.savefig(os.path.join(app.config['UPLOAD_FOLDER']+ "/" + market + '.png'))
+    # path_saved_file = os.path.join(app.config['UPLOAD_FOLDER']) + "/" + filename
 
 if __name__ == '__main__':
     app.run(debug = True)

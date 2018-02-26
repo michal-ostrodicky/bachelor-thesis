@@ -20,31 +20,40 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h1>Visualization of data</h1>
+          <h1>Choose label to predict
+            <br> </h1>
+          <form method="post" enctype="multipart/form-data" action="/choose"> <select name="label_to_predict" class="btn btn-light">
+                {% for column in labels %}
+					{% if to_predict == column %}
+						<option value="{{ column }}" selected="">{{ column }} </option>
+					{% else %}
+						<option value="{{ column }}">{{ column }} </option>
+                    {% endif %}
+					
+                {% endfor %}
+
+           </select>
+            <input type="submit" value="Choose" class="btn btn-light btn-lg ml-auto"> </form>
         </div>
-      </div>
+      </div> {% if uploded_file %}
       <div class="row">
-        <div class="col-md-12 p-4"></div>
-      </div>
-    </div>
+        <div class="col-md-12 p-4">
+          <img src="/static/uploads/{{ market_plot }}" width="100%" height="100%"> </div>
+      </div> {% endif %} </div>
   </div>
   <div class="bg-secondary py-2">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h1>Choose label to predict
-            <br>
-          </h1>
-          <form method="post" enctype="multipart/form-data" action="/choose">
-              <select name="label_to_predict" class="btn btn-light">
-                {% for column in labels %}
-                    <option value="{{ column }}">{{ column }} </option>
-                {% endfor %}
-
-                </select>
-            <input type="submit" value="Choose" class="btn btn-light btn-lg ml-auto"> </form>
+          <h1 class="">Details of dataset</h1>
+		  <p> Number of rows: {{ info[0] }}</p>
+		  <p> Number of columns: {{ info[1] }}</p>
+		  <p> Start date: {{ info[2] }}</p>
+		  <p> End date: {{ info[3] }}</p>
         </div>
-      </div>
+        {% if uploded_file %}
+        <form method="post" enctype="multipart/form-data" action="/predict">
+          <input type="submit" value="Predikuj!" class="btn btn-light btn-lg ml-auto"> </form> {% endif %} </div>
     </div>
   </div>
   <div class="py-5 bg-dark text-white">
