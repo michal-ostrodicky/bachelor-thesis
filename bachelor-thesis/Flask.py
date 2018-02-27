@@ -5,6 +5,7 @@ from flask import Flask, request
 from werkzeug.utils import secure_filename
 from os.path import join, dirname, realpath
 import os
+import numpy as np
 import pandas as pd
 from ARIMA_wavelet import wavelet_smooth,prediction_arima_flask
 from neural_network import train_network
@@ -72,7 +73,9 @@ def upload_file():
                 data_csv = pd.read_csv(path_saved_file)
 
             column_names = list(data_csv.columns.values)
-            global data,info_data
+            global data,info_data,end_date
+
+
             data = data_csv
 
             #print(column_names)
@@ -81,8 +84,8 @@ def upload_file():
             info_data[1] = len(column_names[2:])
             start_date = data.iat[0,0]
             end_date = data.iat[data.shape[0]-1,0]
-            info_data[2]= data.iat[0,0]
-            info_data[3] = data.iat[data.shape[0]-1,0]
+            info_data[2]= data.iat[0,0] # start date
+            info_data[3] = data.iat[data.shape[0]-1,0] # end date
             return render_template('upload.html', info =info_data, labels = column_names[2:])
         else:
             return render_template('index.html', invalid_extension = True)
@@ -94,12 +97,8 @@ def choose_label():
         global market
         market = request.form["label_to_predict"]
         plot_label(data,market)
-        # plot_filename = os.path.join(app.config['UPLOAD_FOLDER'], market + '.png')
-        # path_saved_file = os.path.join(app.config['UPLOAD_FOLDER']) + "/" + market + '.png'
-        # print(path_saved_file)
         full_filename = market + '.png'
         column_names = list(data.columns.values)
-
 
         return render_template('upload.html', info= info_data, to_predict= market, labels = column_names[2:], uploded_file = True, market_plot = full_filename)
 
@@ -110,12 +109,30 @@ def predict():
         bullshit = request.values
 
         size = int(len(data[market].values) * 0.66)
+        datum = data['Hours'][size:len(data[market].values)].values
         data[market] = wavelet_smooth(data[market].values)
-        mse = prediction_arima_flask(data[market].values,market,size)
+        model_fit,rmse = prediction_arima_flask(data[market].values,market,size)
+
+
+        datumy = [None] * 25
+        td = np.timedelta64(1, 'h')
+        last_date = pd.to_datetime(end_date)
+        datumy[0] = last_date + td
+
+        output = model_fit.forecast(24)
+
+        for i in range(24):
+            datumy[i + 1] = datumy[i] + td
+
+
+        rmse = np.round(rmse, 2)
+        output =np.round(output[0], 2)
+        result = [datumy, output]
+
 
         # data_neural = data.drop(data.columns[0:2], 1)
         # print(train_network(data_neural,market))
-        return render_template('blank.html', predik = mse)
+        return render_template('prediction.html', rmse = rmse, result = result, market = market)
 
 
 def plot_label(data_csv,market):

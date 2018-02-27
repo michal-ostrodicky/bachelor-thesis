@@ -77,7 +77,8 @@ def prediction_arima_flask(X,market,size):
     # plt.legend(loc='upper right')
     # plt.grid(which='major', axis='both', linestyle='--')
     # plt.show()
-    return rmse
+    return model_fit,rmse
+
 
 def prediction_arima(X,market,size):
     # size = int(len(X[market].values) * 0.66)
