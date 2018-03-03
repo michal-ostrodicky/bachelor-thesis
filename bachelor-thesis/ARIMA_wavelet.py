@@ -146,7 +146,10 @@ def main():
     # VYBER STLPCA, pre ktory chceme robit predikciu
     market = 'Bergen'
     data = data_csv
-
+    fancy_data = data[market].describe()
+    for i in range(len(fancy_data)):
+        print(fancy_data[i])
+    print(fancy_data)
     # sns.distplot(data[market]);
 
     # Plots

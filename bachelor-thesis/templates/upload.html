@@ -44,16 +44,33 @@
   <div class="bg-secondary py-2">
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
           <h1 class="">Details of dataset</h1>
-		  <p> Number of rows: {{ info[0] }}</p>
-		  <p> Number of columns: {{ info[1] }}</p>
-		  <p> Start date: {{ info[2] }}</p>
-		  <p> End date: {{ info[3] }}</p>
-        </div>
-        {% if uploded_file %}
-        <form method="post" enctype="multipart/form-data" action="/predict">
-          <input type="submit" value="Predict!" class="btn btn-light btn-lg ml-auto"> </form> {% endif %} </div>
+          <p> Number of rows: {{ info[0] }}</p>
+          <p> Number of columns: {{ info[1] }}</p>
+          <p> Start date: {{ info[2] }}</p>
+          <p> End date: {{ info[3] }}</p>
+        </div> {% if statistics is defined %}
+        <div class="col-md-6">
+          <h1 class=""> Summary statistics</h1>
+          <div class="row">
+            <div class="col-md-5">
+              <p>Mean: {{ statistics[1] }} </p>
+              <p>Standard deviation: {{ statistics[2] }} </p>
+              <p>Min value: {{ statistics[3] }} </p>
+              <p>Max value: {{ statistics[7] }} </p>
+            </div>
+            <div class="col-md-7">
+              <p>25% percentile: {{ statistics[4] }} </p>
+              <p>50% percentile: {{ statistics[5] }} </p>
+              <p>75% percentile: {{ statistics[6] }} </p>
+            </div>
+          </div>
+        </div> {% endif %}
+        <div class="col-md-12 text-center"> {% if uploded_file %}
+          <form method="post" enctype="multipart/form-data" action="/predict" class="">
+            <input type="submit" value="Predict!" class="btn btn-light btn-lg mx-auto"> </form> {% endif %} </div>
+      </div>
     </div>
   </div>
   <div class="py-5 bg-dark text-white">
@@ -71,6 +88,9 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 10px;right:10px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:180px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo&nbsp;&nbsp;
+    <img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16">
+  </pingendo>
 </body>
 
 </html>

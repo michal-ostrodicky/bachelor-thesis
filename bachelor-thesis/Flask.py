@@ -96,11 +96,13 @@ def choose_label():
     if request.method == 'POST':
         global market
         market = request.form["label_to_predict"]
-        plot_label(data,market)
-        full_filename = market + '.png'
+        plot_label(data, market)
+        full_filename = '2chart.png'
+        fancy_data = data[market].describe()
+        # print(fancy_data)
         column_names = list(data.columns.values)
-
-        return render_template('upload.html', info= info_data, to_predict= market, labels = column_names[2:], uploded_file = True, market_plot = full_filename)
+        fancy_data = np.round(fancy_data, 2)
+        return render_template('upload.html', info= info_data, statistics = fancy_data ,to_predict= market, labels = column_names[2:], uploded_file = True, market_plot = full_filename)
 
 
 @app.route('/predict', methods=['POST'])
@@ -111,7 +113,7 @@ def predict():
         size = int(len(data[market].values) * 0.66)
         datum = data['Hours'][size:len(data[market].values)].values
         data[market] = wavelet_smooth(data[market].values)
-        model_fit,rmse = prediction_arima_flask(data[market].values,market,size)
+        model_fit,rmse_statistical = prediction_arima_flask(data[market].values,market,size)
 
 
         datumy = [None] * 25
@@ -124,15 +126,14 @@ def predict():
         for i in range(24):
             datumy[i + 1] = datumy[i] + td
 
-
-        rmse = np.round(rmse, 2)
+        rmse_statistical = np.round(rmse_statistical, 2)
         output =np.round(output[0], 2)
-        result = [datumy, output]
+        result_arima = [datumy, output]
 
 
         # data_neural = data.drop(data.columns[0:2], 1)
         # print(train_network(data_neural,market))
-        return render_template('prediction.html', rmse = rmse, result = result, market = market)
+        return render_template('prediction.html', rmse_statistical = rmse_statistical,  result_arima = result_arima, market = market)
 
 
 def plot_label(data_csv,market):
@@ -160,7 +161,8 @@ def plot_label(data_csv,market):
     plt.title('Price of electricity');
     plt.legend(loc='upper right')
     plt.grid(which='major', axis='both', linestyle='--')
-    plt.savefig(os.path.join(app.config['UPLOAD_FOLDER']+ "/" + market + '.png'))
+    plt.savefig(os.path.join(app.config['UPLOAD_FOLDER']+ "/" + '2chart.png'))
+    print("HALO")
     # path_saved_file = os.path.join(app.config['UPLOAD_FOLDER']) + "/" + filename
 
 if __name__ == '__main__':
