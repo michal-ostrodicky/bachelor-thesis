@@ -126,8 +126,8 @@ def prediction_arima(X,market,size):
 def main():
     # PREPARING DATA
 
-    data_xls = pd.read_excel("elspot-prices_2013_hourly_sek.xls", 'elspot-prices_2013_hourly_sek', index_col=None)
-    data_xls.to_csv('prices.csv', encoding='utf-8')
+    # data_xls = pd.read_excel("elspot-prices_2013_hourly_sek.xls", 'elspot-prices_2013_hourly_sek', index_col=None)
+   # data_xls.to_csv('prices.csv', encoding='utf-8')
 
     data_csv = pd.read_csv("prices.csv")
 

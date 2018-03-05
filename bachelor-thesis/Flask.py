@@ -8,7 +8,7 @@ import os
 import numpy as np
 import pandas as pd
 from ARIMA_wavelet import wavelet_smooth,prediction_arima_flask
-from neural_network import train_network
+from neural_network import prediction_neural_network_flask
 import matplotlib.pyplot as plt
 
 
@@ -97,7 +97,7 @@ def choose_label():
         global market
         market = request.form["label_to_predict"]
         plot_label(data, market)
-        full_filename = '2chart.png'
+        full_filename = 'chart.png'
         fancy_data = data[market].describe()
         # print(fancy_data)
         column_names = list(data.columns.values)
@@ -130,10 +130,18 @@ def predict():
         output =np.round(output[0], 2)
         result_arima = [datumy, output]
 
+        dataset = data[market].values
+        dataset = dataset.astype('float32')
+        dataset = dataset[:, None]
 
+        model_neural,rmse_network = prediction_neural_network_flask(dataset)
+        rmse_network = np.round(rmse_network, 2)
         # data_neural = data.drop(data.columns[0:2], 1)
         # print(train_network(data_neural,market))
-        return render_template('prediction.html', rmse_statistical = rmse_statistical,  result_arima = result_arima, market = market)
+        # print(model_neural.predict_generator(steps=24))
+        return render_template('prediction.html', rmse_statistical = rmse_statistical, rmse_network = rmse_network,
+
+                               result_arima = result_arima, market = market)
 
 
 def plot_label(data_csv,market):
@@ -161,7 +169,7 @@ def plot_label(data_csv,market):
     plt.title('Price of electricity');
     plt.legend(loc='upper right')
     plt.grid(which='major', axis='both', linestyle='--')
-    plt.savefig(os.path.join(app.config['UPLOAD_FOLDER']+ "/" + '2chart.png'))
+    plt.savefig(os.path.join(app.config['UPLOAD_FOLDER']+ "/" + 'chart.png'))
     print("HALO")
     # path_saved_file = os.path.join(app.config['UPLOAD_FOLDER']) + "/" + filename
 

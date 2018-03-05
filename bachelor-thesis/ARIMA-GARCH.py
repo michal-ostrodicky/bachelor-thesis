@@ -34,54 +34,7 @@ def wavelet_smooth(x, wavelet="db4", level=1, title=None):
     return X
 
 
-'''
-    Predikcia cien pomocou ARIMA, 
-    pouziva sa rolling prediction, v ktorom si predikovane hdnoty ulozim a postupne porovnavam s
-    testovacimi hodnotami. 
-'''
-def prediction_arima_flask(X,market,size):
-    # size = int(len(X[market].values) * 0.66)
-    train, test = X[0:size], X[size:len(X)]
-    history = [x for x in train]
-    predictions = list()
-
-    t = 0
-
-    while t < len(test):
-        model = ARIMA(history, order=(1, 1, 0))
-        model_fit = model.fit(disp=0)
-        output = model_fit.forecast(24)
-        predicted_value = output[0]
-        # print(predicted_value)
-        q = t + 24
-        observation = test[t:q]
-        for i in range(len(observation)):
-            predictions.append(predicted_value[i])
-            history.append(observation[i])
-            # print('predicted=%f, expected=%f' % (predicted_value[i], observation[i]))
-        t = q
-
-    rmse = sqrt(mean_squared_error(test, predictions))
-    print('Test RMSE: %.3f' % rmse)
-
-    # # plotting result
-    # plotting_frame = pd.DataFrame(predictions)
-    # plotting_frame.index = datum
-    #
-    # plt.figure(figsize=(18, 9))
-    # plt.ylabel('Price')
-    # plt.xlabel('Date')
-    # plt.title('Price of electricity');
-    # plt.plot(data.index, data[market].values, label=market)
-    # plt.plot(plotting_frame.index, plotting_frame, color='red', label='Predicted')
-    # plt.legend(loc='upper right')
-    # plt.grid(which='major', axis='both', linestyle='--')
-    # plt.show()
-    return model_fit,rmse
-
-
-def prediction_arima(X,market,size):
-    # size = int(len(X[market].values) * 0.66)
+def prediction_hybrid(X,size):
 
     train, test = X[0:size], X[size:len(X)]
     history = [x for x in train]
@@ -91,8 +44,6 @@ def prediction_arima(X,market,size):
 
     while t < len(test):
         cA, cD = pywt.dwt(history, w)
-        # print(cA.shape)
-        # print(cD.shape)
         model = ARIMA(cA, order=(1, 1, 0))
         model_fit = model.fit(disp=0)
         output = model_fit.forecast(24)
@@ -114,7 +65,7 @@ def prediction_arima(X,market,size):
         z = pywt.upcoef('a', predicted_value, 'db4', take=24)
         zz = pywt.upcoef('d', pred, 'db4',take=24)
         vysledok = z + zz
-        #print(vysledok)
+
 
         q = t + 24
         observation = test[t:q]
@@ -123,44 +74,11 @@ def prediction_arima(X,market,size):
         for i in range(len(observation)):
             predictions.append(vysledok[i])
             history.append(observation[i])
-            # print('predicted=%f, expected=%f' % (vysledok[i], observation[i]))
 
-        # prediction = pywt.idwt(predicted_value, pred, w)
-        # print(prediction)
-    #
-    #
-    #     # radcA = model.predict(h=1, intervals=False)
-    #     #  print(radcA)
-    #
-    #     # novy_cA = output.as_matrix()
-    #     # novy_cA = novy_cA[:, 0]
-    #
-    #     # print(novy_cA.shape)
-    #     # print(type(novy_cA))
-    #     # print(novy_cA)
-    #     # print(output)
-    #     # print(type(output))
-    #     novy_cA = np.asarray(output[0])
-    #
-    #
-    #
     rmse = sqrt(mean_squared_error(test, predictions))
     print('Test RMSE: %.3f' % rmse)
 
-    # # plotting result
-    # plotting_frame = pd.DataFrame(predictions)
-    # plotting_frame.index = datum
-    #
-    # plt.figure(figsize=(18, 9))
-    # plt.ylabel('Price')
-    # plt.xlabel('Date')
-    # plt.title('Price of electricity');
-    # plt.plot(data.index, data[market].values, label=market)
-    # plt.plot(plotting_frame.index, plotting_frame, color='red', label='Predicted')
-    # plt.legend(loc='upper right')
-    # plt.grid(which='major', axis='both', linestyle='--')
-    # plt.show()
-    # return rmse
+
 
 
 def main():
@@ -216,7 +134,7 @@ def main():
     datum = data['Hours'][size:len(data_csv[market].values)].values
 
     data[market] = wavelet_smooth(data[market].values)
-    prediction_arima(data[market].values,market,size)
+    prediction_hybrid(data[market].values,size)
 
 
 if __name__ == '__main__':

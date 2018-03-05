@@ -1,10 +1,7 @@
 import numpy as np
 import pandas as pd
 import pywt
-import xlrd
 from pandas import read_csv
-import pyflux as pf
-from arch import arch_model
 from statsmodels.tsa.arima_model import ARIMA
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
@@ -12,6 +9,7 @@ from statsmodels.robust import mad
 import statsmodels.api as sm
 import seaborn as sns
 from math import sqrt
+
 sns.set(color_codes=True)
 
 
@@ -43,46 +41,36 @@ def prediction_arima(X):
     train, test = X[0:size], X[size:len(X)]
     history = [x for x in train]
     predictions = list()
+    t = 0
 
-    for t in range(len(test)):
+    while t < len(test):
         model = ARIMA(history, order=(1, 1, 0))
-        model_fit = model.fit(disp=False)
-        output = model_fit.forecast()
+        model_fit = model.fit(disp=0)
+        output = model_fit.forecast(24)
         predicted_value = output[0]
-        predictions.append(predicted_value)
-        observation = test[t]
-        history.append(observation)
-        # print('predicted=%f, expected=%f' % (yhat, obs))
+        # print(predicted_value)
+        q = t + 24
+        observation = test[t:q]
+        for i in range(len(observation)):
+            predictions.append(predicted_value[i])
+            history.append(observation[i])
+            # print('predicted=%f, expected=%f' % (predicted_value[i], observation[i]))
+        t = q
 
     rmse = sqrt(mean_squared_error(test, predictions))
     print('Test RMSE: %.3f' % rmse)
 
-    # plotting result
-    # plotting_frame = pd.DataFrame(predictions)
-    # plotting_frame.index = datum
-    #
-    # plt.figure(figsize=(18, 9))
-    # plt.ylabel('Price')
-    # plt.xlabel('Date')
-    # plt.title('Price of electricity');
-    # plt.plot(data.index, data[market].values, label=market)
-    # plt.plot(plotting_frame.index, plotting_frame, color='red', label='Predicted')
-    # plt.legend(loc='upper right')
-    # plt.grid(which='major', axis='both', linestyle='--')
-    # plt.show()
-
+    return model_fit
 
 
 
 # PREPARING DATA
-# data = xlrd.open_workbook("elspot-prices_2018_hourly_sek.xls")
-#
-# data_xls = pd.read_excel("elspot-prices_2013_hourly_sek.xls", 'elspot-prices_2013_hourly_sek', index_col=None)
-# data_xls.to_csv('prices.csv', encoding='utf-8')
-#
-#
+
+#data_xls = pd.read_excel("elspot-prices_2018_hourly_uer.xls", 'elspot-prices_2018_hourly_eur', index_col=None)
+#data_xls.to_csv('prices.csv', encoding='utf-8')
+
 data_csv = pd.read_csv("prices.csv")
-#data_csv = read_csv('prices.csv', engine='python', skipfooter=1)
+# data_csv = read_csv('prices.csv', engine='python', skipfooter=1)
 # dataset = data_csv.values
 # dataset = dataset.astype('float32')
 
@@ -131,13 +119,11 @@ plt.show()
 print("Fuller test stacionarity test: ",sm.tsa.stattools.adfuller(data[market]))
 
 
+
 size = int(len(data[market].values) * 0.66)
 datum = data_csv['Hours'][size:len(data[market].values)].values
 
 
-
 data[market] = waveletSmooth(data[market].values)
-prediction_arima(data[market].values)
-
-
+model_fit =  prediction_arima(data[market].values)
 
