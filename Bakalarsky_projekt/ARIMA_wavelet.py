@@ -16,7 +16,6 @@ sns.set(color_codes=True)
 
 '''
     Funkcia na zjemnenie casoveho radu
-
 '''
 def waveletSmooth(x, wavelet="db4", level=1, title=None):
     # calculate the wavelet coefficients
@@ -66,8 +65,8 @@ def prediction_arima(X):
 
 # PREPARING DATA
 
-#data_xls = pd.read_excel("elspot-prices_2018_hourly_uer.xls", 'elspot-prices_2018_hourly_eur', index_col=None)
-#data_xls.to_csv('prices.csv', encoding='utf-8')
+data_xls = pd.read_excel("elspot-prices_2018_hourly_sek.xls", 'elspot-prices_2018_hourly_sek', index_col=None)
+data_xls.to_csv('prices.csv', encoding='utf-8')
 
 data_csv = pd.read_csv("prices.csv")
 # data_csv = read_csv('prices.csv', engine='python', skipfooter=1)

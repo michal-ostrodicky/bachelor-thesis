@@ -1,16 +1,15 @@
 from flask import Flask,render_template
-
-app = Flask(__name__)
 from flask import Flask, request
 from werkzeug.utils import secure_filename
 from os.path import join, dirname, realpath
 import os
+import math
 import numpy as np
 import pandas as pd
 from ARIMA_wavelet import wavelet_smooth,prediction_arima_flask
 from neural_network import prediction_neural_network_flask
 import matplotlib.pyplot as plt
-
+from keras.models import model_from_json
 
 UPLOAD_FOLDER = join(dirname(realpath(__file__)), 'static/uploads')
 
@@ -134,12 +133,37 @@ def predict():
         dataset = dataset.astype('float32')
         dataset = dataset[:, None]
 
-        model_neural,rmse_network = prediction_neural_network_flask(dataset)
-        rmse_network = np.round(rmse_network, 2)
+
+        train_size = int(len(dataset) * 0.67)
+        train, test = dataset[0:train_size, :], dataset[train_size:len(dataset), :]
+
+        look_back = 24
+
+        testX, testY = create_dataset(test, look_back)
+
+        # model_json = model.to_json()
+        # with open("model.json", "w") as json_file:
+        #     json_file.write(model_json)
+        # # serialize weights to HDF5
+        # model.save_weights("model.h5")
+
+        json_file = open('model.json', 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        loaded_model = model_from_json(loaded_model_json)
+        # load weights into new model
+        loaded_model.load_weights("model.h5")
+
+        loaded_model.compile(loss='mean_squared_error', optimizer='adam')
+        testScore = loaded_model.evaluate(testX, testY, verbose=0)
+        print('Test Score: %.2f MSE (%.2f RMSE)' % (testScore, math.sqrt(testScore)))
+
+       # model_neural,rmse_network = prediction_neural_network_flask(dataset)
+        # rmse_network = np.round(rmse_network, 2)
         # data_neural = data.drop(data.columns[0:2], 1)
         # print(train_network(data_neural,market))
         # print(model_neural.predict_generator(steps=24))
-        return render_template('prediction.html', rmse_statistical = rmse_statistical, rmse_network = rmse_network,
+        return render_template('prediction.html', rmse_statistical = rmse_statistical, rmse_network = testScore,
 
                                result_arima = result_arima, market = market)
 
@@ -170,8 +194,16 @@ def plot_label(data_csv,market):
     plt.legend(loc='upper right')
     plt.grid(which='major', axis='both', linestyle='--')
     plt.savefig(os.path.join(app.config['UPLOAD_FOLDER']+ "/" + 'chart.png'))
-    print("HALO")
     # path_saved_file = os.path.join(app.config['UPLOAD_FOLDER']) + "/" + filename
+
+def create_dataset(dataset, look_back=1):
+    dataX, dataY = [], []
+    for i in range(len(dataset) - look_back - 1):
+        a = dataset[i:(i + look_back), 0]
+        dataX.append(a)
+        dataY.append(dataset[i + look_back, 0])
+    return np.array(dataX), np.array(dataY)
+
 
 if __name__ == '__main__':
     app.run(debug = True)
