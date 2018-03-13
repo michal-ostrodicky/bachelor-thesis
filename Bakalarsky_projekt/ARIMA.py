@@ -12,7 +12,18 @@ from math import sqrt
 
 sns.set(color_codes=True)
 
+def predict(coef, history):
+	yhat = 0.0
+	for i in range(1, len(coef)+1):
+		yhat += coef[i-1] * history[-i]
+	return yhat
 
+def difference(dataset):
+	diff = list()
+	for i in range(1, len(dataset)):
+		value = dataset[i] - dataset[i - 1]
+		diff.append(value)
+	return np.array(diff)
 
 '''
     Funkcia na zjemnenie casoveho radu
@@ -42,19 +53,33 @@ def prediction_arima(X):
     predictions = list()
     t = 0
 
+    # for t in range(len(test)):
+    #     model = ARIMA(history, order=(1, 1, 1))
+    #     model_fit = model.fit(disp=False)
+    #     ar_coef, ma_coef = model_fit.arparams, model_fit.maparams
+    #     resid = model_fit.resid
+    #     diff = difference(history)
+    #     yhat = history[-1] + predict(ar_coef, diff) + predict(ma_coef, resid)
+    #     predictions.append(yhat)
+    #     obs = test[t]
+    #     history.append(obs)
+    #     print('>predicted=%.3f, expected=%.3f' % (yhat, obs))
+
     while t < len(test):
-        model = ARIMA(history, order=(2, 1, 0))
+        model = ARIMA(history, order=(3, 1, 0))
         model_fit = model.fit(disp=0)
-        output = model_fit.forecast(24)
-        predicted_value = output[0]
-        # print(predicted_value)
+        forecast = model_fit.forecast(steps=24)[0]
+        #predicted_value = output[0]
+        # print(forecast)
         q = t + 24
         observation = test[t:q]
         for i in range(len(observation)):
-            predictions.append(predicted_value[i])
+            predictions.append(forecast[i])
             history.append(observation[i])
             # print('predicted=%f, expected=%f' % (predicted_value[i], observation[i]))
         t = q
+
+
 
     rmse = sqrt(mean_squared_error(test, predictions))
     print('Test RMSE: %.3f' % rmse)

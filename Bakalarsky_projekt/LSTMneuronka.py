@@ -9,41 +9,7 @@ from sklearn.utils import shuffle
 from sklearn.metrics import mean_squared_error
 import time
 from matplotlib import pyplot
-
-
-def prediction_neural_network_flask(X):
-    train_size = int(len(X) * 0.67)
-    train, test = X[0:train_size, :], X[train_size:len(X), :]
-    print(train)
-
-    # reshape dataset
-    look_back = 2
-    trainX, trainY = create_dataset(train, look_back)
-    testX, testY = create_dataset(test, look_back)
-
-    # create and fit Multilayer Perceptron model
-    model = Sequential()
-    model.add(Dense(48, input_dim=look_back, activation='relu'))
-    model.add(Dense(16, activation='relu'))
-    model.add(Dense(1))
-    model.compile(loss='mean_squared_error', optimizer='adam')
-    model.fit(trainX, trainY, epochs=600, batch_size=256, verbose=2)
-
-    # Estimate model performance
-    trainScore = model.evaluate(trainX, trainY, verbose=0)
-    print('Train Score: %.2f MSE (%.2f RMSE)' % (trainScore, math.sqrt(trainScore)))
-    testScore = model.evaluate(testX, testY, verbose=0)
-    print('Test Score: %.2f MSE (%.2f RMSE)' % (testScore, math.sqrt(testScore)))
-
-    # Estimate model performance
-    trainScore = model.evaluate(trainX, trainY, verbose=0)
-    print('Train Score: %.2f MSE (%.2f RMSE)' % (trainScore, math.sqrt(trainScore)))
-    testScore = model.evaluate(testX, testY, verbose=0)
-    print('Test Score: %.2f MSE (%.2f RMSE)' % (testScore, math.sqrt(testScore)))
-
-
-    return model,math.sqrt(testScore)
-
+from keras.layers import TimeDistributed
 
 def moving_test_window_preds(n_future_preds,test_X,model,scaler):
     ''' n_future_preds - Represents the number of future predictions we want to make
@@ -72,9 +38,6 @@ def moving_test_window_preds(n_future_preds,test_X,model,scaler):
 
 
 def main():
-    # fix random seed for reproducibility
-    # numpy.random.seed(7)
-
 
     # load the dataset
     data_csv = pd.read_csv("prices.csv")
@@ -85,7 +48,6 @@ def main():
     # dataset = dataset[:,None]
 
     dataset = dataset.reshape(-1, 1)
-    # print(dataset.shape)
     scaler = MinMaxScaler(feature_range=(-1, 1))
     scaled = scaler.fit_transform(dataset)
     series = pd.DataFrame(scaled)
@@ -94,12 +56,15 @@ def main():
 
     series_s = series.copy()
     for i in range(window_size):
-        series = pd.concat([series, series_s.shift(-(i + 1))], axis=1)
+        series = pd.concat([series, series_s.shift((i + 1))], axis=1)
 
     series.dropna(axis=0, inplace=True)
     # print(dataset)
-
-    # print(series.shape)
+    series.to_csv('series.csv',sep=" ")
+    print(series.shape)
+    # print(series_s)
+    print(series_s.shape)
+    series_s.to_csv('series_s.csv', sep=" ")
 
     nrow = round(0.8 * series.shape[0])
     train = series.iloc[:nrow, :]
@@ -108,35 +73,44 @@ def main():
     train = shuffle(train)
 
     train_X = train.iloc[:, :-1]
-    train_y = train.iloc[:, -1]
+    train_y = train.iloc[:, :-1]
     test_X = test.iloc[:, :-1]
-    test_y = test.iloc[:, -1]
+    test_y = test.iloc[:, :-1]
 
     train_X = train_X.values
     train_y = train_y.values
     test_X = test_X.values
     test_y = test_y.values
 
-    train_X = train_X.reshape(train_X.shape[0], train_X.shape[1], 1)
-    test_X = test_X.reshape(test_X.shape[0], test_X.shape[1], 1)
-
     print(train_X.shape)
     print(train_y.shape)
     print(test_X.shape)
     print(test_y.shape)
 
+    train_X = train_X.reshape(train_X.shape[0], train_X.shape[1], 1)
+    test_X = test_X.reshape(test_X.shape[0], test_X.shape[1], 1)
+    train_y = train_y.reshape(train_y.shape[0], train_y.shape[1], 1)
+    test_y = test_y.reshape(test_y.shape[0], test_y.shape[1], 1)
+
+
+    # model = Sequential()
+    # model.add(LSTM(input_shape=(24, 1), output_dim=24, return_sequences=True))
+    # model.add(Dropout(0.5))
+    # model.add(LSTM(512))
+    # model.add(Dropout(0.5))
+    # model.add(Dense(1))
+    # model.add(Activation("linear"))
+    # model.compile(loss="mse", optimizer="adam")
+    # model.summary()
+
     model = Sequential()
-    model.add(LSTM(input_shape=(24, 1), output_dim=24, return_sequences=True))
-    model.add(Dropout(0.5))
-    model.add(LSTM(256))
-    model.add(Dropout(0.5))
-    model.add(Dense(1))
-    model.add(Activation("linear"))
-    model.compile(loss="mse", optimizer="adam")
-    model.summary()
+    model.add(LSTM(24, input_shape=(24, 1), return_sequences=True))
+    model.add(TimeDistributed(Dense(1)))
+    model.compile(loss='mean_squared_error', optimizer='adam')
+    print(model.summary())
 
     start = time.time()
-    model.fit(train_X, train_y, batch_size=512, epochs=5, validation_split=0.1)
+    model.fit(train_X, train_y, batch_size=256, epochs=500, validation_split=0.1)
     print("> Compilation Time : ", time.time() - start)
 
     # preds_moving = moving_test_window_preds(24,test_X, model,scaler)
@@ -146,24 +120,55 @@ def main():
     # print(actuals.shape)
     # print("RMSE je ", math.sqrt(mean_squared_error(actuals,preds_moving)))
 
+
     preds = model.predict(test_X)
-    preds = scaler.inverse_transform(preds)
-    test_y = test_y.reshape(-1, 1)
-    actuals = scaler.inverse_transform(test_y)
 
-    print("RMSE je ", math.sqrt(mean_squared_error(actuals,preds)))
+    print("Tvar predikcie ", preds.shape)
+    print("Tvar testovacich ", test_y.shape)
 
-    preds = model.predict(train_X)
+    x = preds[0,]
+    y = test_y[0,]
+    print("Predikcie: ", preds[0,])
+    print("Testovacie: ", test_y[0,])
+    print("RMSE je ", math.sqrt(mean_squared_error(y, x)))
+    # for i in range(len(test)):
+    #     print(preds[i],',',test_y[i])
 
-    preds = scaler.inverse_transform(preds)
-    train_y = train_y.reshape(-1, 1)
-    actuals = scaler.inverse_transform(train_y)
 
-    print("RMSE je ", math.sqrt(mean_squared_error(actuals, preds)))
-    # print(preds)
-    pyplot.plot(actuals)
-    pyplot.plot(preds)
-    pyplot.show()
+    # preds = scaler.inverse_transform(preds)
+   # test_y = test_y.reshape(-1, 1)
+    # actuals = scaler.inverse_transform(test_y)
+
+    # volaco = np.round(actuals[:,0], 2)
+    # # preds = np.round(preds[:,0], 2)
+    # print(actuals.shape)
+    # print(preds.shape)
+    # print("Predikcia", volaco)
+    # print("Aktualne", actuals)
+
+    # pyplot.plot(preds)
+    # pyplot.plot(test_y)
+    # pyplot.show()
+    #
+
+    # test_y = test_y.reshape(test_y.shape[0], test_y.shape[1])
+    #
+    # print("RMSE je ", math.sqrt(mean_squared_error(test_y,preds)))
+    #
+    # preds = model.predict(train_X)
+
+   # volaco = np.round(actuals[:, 0], 2)
+   #  preds = scaler.inverse_transform(preds)
+   #  train_y = train_y.reshape(-1, 1)
+   #  actuals = scaler.inverse_transform(train_y)
+
+    # print("RMSE je ", math.sqrt(mean_squared_error(train_y, preds)))
+    # # print(preds)
+    #
+    # pyplot.plot(preds)
+    # pyplot.plot(test_y)
+    # pyplot.show()
+
     # kf = KFold(n_splits=2)
     #
     #

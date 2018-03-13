@@ -11,7 +11,7 @@ from statsmodels.robust import mad
 import statsmodels.api as sm
 import seaborn as sns
 from math import sqrt
-sns.set(color_codes=True)
+# sns.set(color_codes=True)
 
 
 '''

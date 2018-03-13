@@ -102,22 +102,28 @@ def main():
     test_X = test_X.values
     test_y = test_y.values
 
-    train_X = train_X.reshape(train_X.shape[0], train_X.shape[1], 1)
-    test_X = test_X.reshape(test_X.shape[0], test_X.shape[1], 1)
+    # print("trenovacia", train_X)
+    # print("testovacia", test_X)
+    # train_X = train_X.reshape(train_X.shape[0], train_X.shape[1], 1)
+    # test_X = test_X.reshape(test_X.shape[0], test_X.shape[1], 1)
 
     print(train_X.shape)
-    print(train_X)
     print(train_y.shape)
     print(test_X.shape)
     print(test_y.shape)
 
+    # train_X = numpy.asarray(train_X, dtype=numpy.float64)
+    # mlp = MLPClassifier(hidden_layer_sizes=(30, 30, 30))
+    # mlp.fit(train_X, train_y)
 
-    mlp = MLPClassifier(hidden_layer_sizes=(30, 30, 30))
-    mlp.fit(train_X, train_y)
+    model = Sequential()
+    model.add(Dense(50, input_dim=24, activation='relu'))
+    model.add(Dense(30, activation='relu'))
+    model.add(Dense(24))
+    model.compile(loss='mean_squared_error', optimizer='adam')
+    model.summary()
+    model.fit(train_X, train_y, epochs=300, batch_size=16)
 
-   #  model = Sequential()
-   #  model.add(Dense(128, input_shape=(24,1)))
-   #  model.add(Activation('relu'))
    #  model.add(Dropout(0.15))
    #  model.add(Dense(128, input_shape=(24,1)))
    #  model.add(Activation('relu'))
@@ -126,7 +132,9 @@ def main():
    #  model.add(Activation('relu'))
    #  model.compile(loss='mse', optimizer='adam')
    #  start = time.time()
-   # #  model.fit(train_X, train_y, epochs=10, batch_size=512, validation_split=0.1, verbose=2)
+   # model.fit(train_X, train_y, epochs=10, batch_size=512, validation_split=0.1, verbose=2)
+
+   # model.fit(train_X, train_y, epochs=10, batch_size=512, validation_split=0.1, verbose=2)
    #  print("> Compilation Time : ", time.time() - start)
     # preds = model.predict(test_X)
     #

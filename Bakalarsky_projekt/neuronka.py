@@ -59,6 +59,7 @@ for train_indices, test_indices in kf.split(dataset):
     model.compile(loss='mean_squared_error', optimizer='adam')
     model.fit(trainX, trainY, epochs=600, batch_size=256, verbose=2)
 
+
     trainScore = model.evaluate(trainX, trainY, verbose=0)
     print('Train Score: %.2f MSE (%.2f RMSE)' % (trainScore, math.sqrt(trainScore)))
 #    ww = scaler.inverse_transform()
@@ -74,13 +75,13 @@ print("Testovacie RMSE ", testRMSE)
 print("Priemerna hodnota RMSE na testovacich: ", sum(trainRMSE)/ float(len(trainRMSE)))
 print("Priemerna hodnota RMSE na testovacich: ", sum(testRMSE) / float(len(testRMSE)))
 
-# serialize model to JSON
-model_json = model.to_json()
-with open("model.json", "w") as json_file:
-    json_file.write(model_json)
-# serialize weights to HDF5
-model.save_weights("model.h5")
-
+# # serialize model to JSON
+# model_json = model.to_json()
+# with open("model.json", "w") as json_file:
+#     json_file.write(model_json)
+# # serialize weights to HDF5
+# model.save_weights("model.h5")
+#
 json_file = open('model.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
@@ -88,7 +89,7 @@ loaded_model = model_from_json(loaded_model_json)
 # load weights into new model
 loaded_model.load_weights("model.h5")
 print("Loaded model from disk")
-
+#
 # evaluate loaded model on test data
 loaded_model.compile(loss='mean_squared_error', optimizer='adam')
 testScore = loaded_model.evaluate(testX, testY, verbose=0)
