@@ -119,10 +119,10 @@ def main():
     model = Sequential()
     model.add(Dense(50, input_dim=24, activation='relu'))
     model.add(Dense(30, activation='relu'))
-    model.add(Dense(24))
+    model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
     model.summary()
-    model.fit(train_X, train_y, epochs=300, batch_size=16)
+    model.fit(train_X, train_y, epochs=30, batch_size=16)
 
    #  model.add(Dropout(0.15))
    #  model.add(Dense(128, input_shape=(24,1)))
