@@ -14,12 +14,16 @@ from math import sqrt
 sns.set(color_codes=True)
 
 
+
+def mean_absolute_percentage_error(y_true, y_pred):
+    y_true, y_pred = np.array(y_true), np.array(y_pred)
+    return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
+
+
 '''
     Funkcia na zjemnenie casoveho radu
 
 '''
-
-
 def wavelet_smooth(x, wavelet="db4", level=1, title=None):
     # calculate the wavelet coefficients
     coeff = pywt.wavedec(x, wavelet, mode="per")
@@ -88,6 +92,7 @@ def prediction_arima(X,market,size):
     predictions = list()
     w = pywt.Wavelet('db4')
     t = 0
+    print(len(test))
 
     while t < len(test):
         cA, cD = pywt.dwt(history, w)
@@ -125,6 +130,8 @@ def prediction_arima(X,market,size):
             history.append(observation[i])
             # print('predicted=%f, expected=%f' % (vysledok[i], observation[i]))
 
+        if(t % 25):
+            print(t)
         # prediction = pywt.idwt(predicted_value, pred, w)
         # print(prediction)
     #
@@ -147,6 +154,8 @@ def prediction_arima(X,market,size):
     rmse = sqrt(mean_squared_error(test, predictions))
     print('Test RMSE: %.3f' % rmse)
 
+    print("MAPE testovacie ", mean_absolute_percentage_error(test, predictions))
+
     # # plotting result
     # plotting_frame = pd.DataFrame(predictions)
     # plotting_frame.index = datum
@@ -165,8 +174,8 @@ def prediction_arima(X,market,size):
 
 def main():
     # PREPARING DATA
-    # data_xls = pd.read_excel("elspot-prices_2018_hourly_uer.xls", 'elspot-prices_2018_hourly_eur', index_col=None)
-    # data_xls.to_csv('prices.csv', encoding='utf-8')
+    data_xls = pd.read_excel("elspot-prices_2013_hourly_sek.xls", 'elspot-prices_2013_hourly_sek', index_col=None)
+    data_xls.to_csv('prices.csv', encoding='utf-8')
 
     data_csv = pd.read_csv("prices.csv")
 
@@ -183,9 +192,10 @@ def main():
     data_csv = data_csv.drop(data_csv.columns[[0]], axis=1)
 
     # VYBER STLPCA, pre ktory chceme robit predikciu
-    market = 'Bergen'
+    market = 'Oslo'
     data = data_csv
-
+    data = data[market]
+    data.fillna((data.mean()), inplace=True)
     # sns.distplot(data[market]);
 
     # Plots
@@ -210,13 +220,13 @@ def main():
     ## ADF statistic If the value is larger than the critical values, again,
     # meaning that we can accept the null hypothesis and in turn that the time series is non-stationary
 
-    print("Fuller test stacionarity test: ", sm.tsa.stattools.adfuller(data[market]))
+    print("Fuller test stacionarity test: ", sm.tsa.stattools.adfuller(data))
 
-    size = int(len(data[market].values) * 0.66)
-    datum = data['Hours'][size:len(data_csv[market].values)].values
+    size = round(0.6 * data.shape[0]) - (round(0.6 * data.shape[0]) % 24)
+    datum = data_csv['Hours'][size:len(data)]
 
-    data[market] = wavelet_smooth(data[market].values)
-    prediction_arima(data[market].values,market,size)
+    data = wavelet_smooth(data)
+    prediction_arima(data,market,size)
 
 
 if __name__ == '__main__':

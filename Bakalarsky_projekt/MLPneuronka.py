@@ -71,7 +71,7 @@ def main():
 
     dataset = dataset.reshape(-1, 1)
     # print(dataset.shape)
-    scaler = MinMaxScaler(feature_range=(-1, 1))
+    scaler = MinMaxScaler(feature_range=(0, 1))
     scaled = scaler.fit_transform(dataset)
     series = pd.DataFrame(scaled)
 
@@ -85,6 +85,7 @@ def main():
     # print(dataset)
 
     # print(series.shape)
+
 
     nrow = round(0.8 * series.shape[0])
     train = series.iloc[:nrow, :]
@@ -131,18 +132,18 @@ def main():
    #  model.add(Dense(24,input_shape=(24,1)))
    #  model.add(Activation('relu'))
    #  model.compile(loss='mse', optimizer='adam')
-   #  start = time.time()
+    start = time.time()
    # model.fit(train_X, train_y, epochs=10, batch_size=512, validation_split=0.1, verbose=2)
 
    # model.fit(train_X, train_y, epochs=10, batch_size=512, validation_split=0.1, verbose=2)
-   #  print("> Compilation Time : ", time.time() - start)
-    # preds = model.predict(test_X)
+    print("> Compilation Time : ", time.time() - start)
+    preds = model.predict(test_X)
     #
-    # preds = scaler.inverse_transform(preds)
-    # test_y = test_y.reshape(-1, 1)
-    # actuals = scaler.inverse_transform(test_y)
-    #
-    # print("RMSE je ", math.sqrt(mean_squared_error(actuals,preds)))
+    preds = scaler.inverse_transform(preds)
+    test_y = test_y.reshape(-1, 1)
+    actuals = scaler.inverse_transform(test_y)
+
+    print("RMSE je ", math.sqrt(mean_squared_error(actuals,preds)))
 
 
 

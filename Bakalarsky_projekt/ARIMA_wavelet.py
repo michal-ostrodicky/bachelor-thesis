@@ -30,6 +30,9 @@ def waveletSmooth(x, wavelet="db4", level=1, title=None):
 
     return X
 
+def mean_absolute_percentage_error(y_true, y_pred):
+    y_true, y_pred = np.array(y_true), np.array(y_pred)
+    return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
 
 '''
     Predikcia cien pomocou ARIMA, 
@@ -56,8 +59,12 @@ def prediction_arima(X):
             # print('predicted=%f, expected=%f' % (predicted_value[i], observation[i]))
         t = q
 
+    print(predictions)
+    print("TEst", test)
     rmse = sqrt(mean_squared_error(test, predictions))
     print('Test RMSE: %.3f' % rmse)
+
+    print("MAPE testovacie ", mean_absolute_percentage_error(test, predictions))
 
     return model_fit
 
@@ -65,8 +72,8 @@ def prediction_arima(X):
 
 # PREPARING DATA
 
-#data_xls = pd.read_excel("elspot-prices_2018_hourly_sek.xls", 'elspot-prices_2018_hourly_sek', index_col=None)
-#data_xls.to_csv('prices.csv', encoding='utf-8')
+data_xls = pd.read_excel("elspot-prices_2017_hourly_eur.xls", 'elspot-prices_2017_hourly_eur', index_col=None, )
+data_xls.to_csv('prices.csv', encoding='utf-8')
 
 data_csv = pd.read_csv("prices.csv")
 # data_csv = read_csv('prices.csv', engine='python', skipfooter=1)
@@ -87,15 +94,17 @@ data_csv = data_csv.drop(data_csv.columns[[0]], axis=1)
 
 
 # VYBER STLPCA, pre ktory chceme robit predikciu
-market = 'Bergen'
-data = data_csv
+market = 'Oslo'
+data = data_csv[market]
+
+data.fillna((data.mean()), inplace=True)
 
 # sns.distplot(data[market]);
 
 # Plots
 data.index = data_csv['Hours'].values
 plt.figure(figsize=(18,9))
-plt.plot(data.index,data[market])
+plt.plot(data.index,data)
 plt.legend(loc='upper right')
 plt.ylabel('Price')
 plt.xlabel('Date')
@@ -107,22 +116,24 @@ plt.show()
 
 fig = plt.figure(figsize=(12,8))
 ax1 = fig.add_subplot(211)
-fig = sm.graphics.tsa.plot_acf(data[market], lags=30, ax=ax1)
+fig = sm.graphics.tsa.plot_acf(data, lags=30, ax=ax1)
 ax2 = fig.add_subplot(212)
-fig = sm.graphics.tsa.plot_pacf(data[market], lags=30, ax=ax2)
+fig = sm.graphics.tsa.plot_pacf(data, lags=30, ax=ax2)
 plt.show()
 
 ## ADF statistic If the value is larger than the critical values, again,
 # meaning that we can accept the null hypothesis and in turn that the time series is non-stationary
 
-print("Fuller test stacionarity test: ",sm.tsa.stattools.adfuller(data[market]))
+# print("Fuller test stacionarity test: ",sm.tsa.stattools.adfuller(data[market]))
 
 
 
-size = int(len(data[market].values) * 0.60)
-datum = data_csv['Hours'][size:len(data[market].values)].values
+# size = int(len(data[market].values) * 0.60)
+size = round(0.6 * data.shape[0])- (round(0.6 * data.shape[0]) % 24)
+datum = data_csv['Hours'][size:len(data)]
 
 
-data[market] = waveletSmooth(data[market].values)
-model_fit =  prediction_arima(data[market].values)
+data= waveletSmooth(data)
+model_fit =  prediction_arima(data)
+
 
