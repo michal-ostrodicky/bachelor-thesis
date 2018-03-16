@@ -127,11 +127,6 @@ def main():
     # train = series.iloc[:nrow, :]
     # test = series.iloc[nrow:, :]
 
-
-
-    # train.to_csv('series.csv', sep=" ")
-    # train_y.to_csv('series_s.csv', sep=" ")
-
     # train = shuffle(train)
 
     # train_X = train.iloc[:, :-1]
