@@ -89,25 +89,8 @@ def main():
 
 
     # series.to_csv('povodne.csv', sep=" ")
-    #
-    # window_size = 24
-    # j = 0
-    #
-    # series_s = series.copy()
-    # while j < n:
-    #     # print(series_s[i])
-    #     print(series_s.shift(24))
-    #     # series = pd.concat([series, series_s.shift(24)], axis=1)
-    #     j = j + window_size
-    #
-    # series.dropna(axis=0, inplace=True)
-    #
-    # # print(dataset)
-    # series.to_csv('series.csv',sep=" ")
-    # print(series.shape)
-    # print(series_s)
-    # print(series_s.shape)
-    # series_s.to_csv('series_s.csv', sep=" ")
+
+
 
     # entireData = data((n, 52, 1))
     train_X = train_data[:, :-1, :]
@@ -116,40 +99,13 @@ def main():
     test_y = test_data[:, 1:, :]
 
 
-    # print("X kove", X)
-    # print("Y kove", y)
+    print("Trenovac", train_X)
+    print("Testovac", train_y)
 
-    print(train_X.shape)
-    print(train_y.shape)
+    # print("X kove train ", train_X)
+    # print("Y kove train ", train_X)
 
-    #
-    # nrow = round(0.8 * series.shape[0])
-    # train = series.iloc[:nrow, :]
-    # test = series.iloc[nrow:, :]
 
-    # train = shuffle(train)
-
-    # train_X = train.iloc[:, :-1]
-    # train_y = train.iloc[:, -1]
-    # test_X = test.iloc[:, :-1]
-    # test_y = test.iloc[:, -1]
-    #
-    #
-    # train_X = train_X.values
-    # train_y = train_y.values
-    # test_X = test_X.values
-    # test_y = test_y.values
-    #
-    # print(train_X.shape)
-    # print(train_y.shape)
-    # print(test_X.shape)
-    # print(test_y.shape)
-    #
-    # train_X = train_X.reshape(train_X.shape[0], 24, 1)
-    # test_X = test_X.reshape(test_X.shape[0], 24, 1)
-    # train_y = train_y.reshape(train_y.shape[0],24, 1)
-    # test_y = test_y.reshape(test_y.shape[0], 24, 1)
-    #
     # print(train_X.shape)
     # print(train_y.shape)
     # print(test_X.shape)
@@ -203,19 +159,16 @@ def main():
 #     print("Originalny scale test RMSE je ", math.sqrt(mean_squared_error(test_y,preds)))
 #
 #
-# #### trenovacie
+
     preds = model.predict(train_X)
     print("TRENOVACIE")
     # print("MAPE trenovacie ", mean_absolute_percentage_error(train_y, preds))
     nsamples, nx, ny = train_y.shape
     train_y = train_y.reshape((nsamples, nx * ny))
     train_y = scaler.inverse_transform(train_y)
-
     nsamples, nx, ny = preds.shape
     preds = preds.reshape((nsamples, nx * ny))
     preds = scaler.inverse_transform(preds)
-
-    print("Originalny scale trenovacie RMSE je ", math.sqrt(mean_squared_error(train_y, preds)))
     print("MAPE trenovacich ", mean_absolute_percentage_error(train_y, preds))
 
 
@@ -225,26 +178,11 @@ def main():
     nsamples, nx, ny = test_y.shape
     test_y = test_y.reshape((nsamples, nx * ny))
     test_y = scaler.inverse_transform(test_y)
-
     nsamples, nx, ny = preds.shape
     preds = preds.reshape((nsamples, nx * ny))
     preds = scaler.inverse_transform(preds)
-
-
-    print("Originalny scale testovacie RMSE je ", math.sqrt(mean_squared_error(test_y, preds)))
-
     print("MAPE testovacie ", mean_absolute_percentage_error(test_y,preds))
-#
-#     nsamples, nx, ny = preds.shape
-#     normalizovane_preds = preds.reshape((nsamples, nx * ny))
-#
-#     nsamples, nx, ny = train_y.shape
-#     normalizovane_train_y = train_y.reshape((nsamples, nx * ny))
-#
-#     # print("Predikcie: ", preds)
-#     # print("Testovacie: ", test_y)
-#     # print(preds.shape)
-#     # print(test_y.shape)
+
 #     RMSE = math.sqrt(mean_squared_error(normalizovane_train_y, normalizovane_preds))
 #     print("Scaled trenovacie RMSE je ", RMSE)
 #
@@ -258,10 +196,7 @@ def main():
 #
 #     print("Originalny scale trenovacie RMSE je ", math.sqrt(mean_squared_error(train_y, preds)))
 #
-#
-#    # test_y = test_y.reshape(-1, 1)
-#     # actuals = scaler.inverse_transform(test_y)
-#
+
 #     # volaco = np.round(actuals[:,0], 2)
 #     # preds = np.round(preds[:,0], 2)
 #     # print(actuals.shape)
