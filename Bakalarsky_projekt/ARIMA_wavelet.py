@@ -56,15 +56,19 @@ def prediction_arima(X):
         for i in range(len(observation)):
             predictions.append(predicted_value[i])
             history.append(observation[i])
-            # print('predicted=%f, expected=%f' % (predicted_value[i], observation[i]))
+            print('predicted=%f, expected=%f' % (predicted_value[i], observation[i]))
         t = q
 
-    print(predictions)
-    print("TEst", test)
     rmse = sqrt(mean_squared_error(test, predictions))
     print('Test RMSE: %.3f' % rmse)
 
     print("MAPE testovacie ", mean_absolute_percentage_error(test, predictions))
+
+    print("BUDUCNOST")
+    output = model_fit.forecast(24)
+    predicted_value = output[0]
+    print("NEXT VALUES: ", predicted_value)
+
 
     return model_fit
 

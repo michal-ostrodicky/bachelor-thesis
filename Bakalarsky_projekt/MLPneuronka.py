@@ -4,12 +4,10 @@ import pandas as pd
 import math
 from keras.models import Sequential
 from keras.layers.core import Dense, Activation, Dropout
-from keras.layers.recurrent import LSTM
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.utils import shuffle
-from sklearn.metrics import mean_squared_error
 import time
-
+from matplotlib import pyplot
 
 def mean_absolute_percentage_error(y_true, y_pred):
     y_true, y_pred = np.array(y_true), np.array(y_pred)
@@ -70,36 +68,31 @@ def main():
     series = array(scaled)
 
 
-    nrow = round(0.8 * series.shape[0])- (round(0.8 * series.shape[0]) % 24)
+    nrow = round(0.8 * series.shape[0])- (round(0.8 * series.shape[0]) % 25)
 
-    train_end = round(0.8 * series.shape[0])- (round(0.8 * series.shape[0]) % 24)
+    train_end = round(0.8 * series.shape[0])- (round(0.8 * series.shape[0]) % 25)
     test_start = train_end + 1
     test_end = n
-    index = (test_end - test_start) - ((test_end - test_start) % 24)
-
-    # print("Indexx", index)
-    # print(nrow)
-    # print(train_end)
+    index = (test_end - test_start) - ((test_end - test_start) % 25)
 
 
     series = series.ravel()
     train = np.zeros(train_end)
     test = np.zeros(n - test_start)
-    # print(test.shape)
-    # print(train.shape)
     train = series[0:train_end]
     test = series[test_start:test_end]
 
     # print(len(train))
     # print(len(test))
 
-    length = 24
+    length = 25
 
     samples = np.empty((0,length),dtype=float)
 
     for i in range(0, nrow, length):
         sample = train[i:i + length]
-        samples = np.append(samples,sample.reshape(1,24),axis = 0)
+        samples = np.append(samples,sample.reshape(1,25),axis = 0)
+
     # print(len(samples))
 
     train_data = np.array(samples)
@@ -114,7 +107,7 @@ def main():
 
     for i in range(0, index, length):
         sample = test[i:i + length]
-        samples = np.append(samples, sample.reshape(1, 24), axis=0)
+        samples = np.append(samples, sample.reshape(1, 25), axis=0)
     # print(len(samples))
 
     test_data = np.array(samples)
@@ -128,37 +121,28 @@ def main():
     test_X = test_data[:, :-1]
     test_y = test_data[:, 1:]
 
-    print(train_X.shape)
-    print(train_y.shape)
-    print(test_X.shape)
-    print(test_y.shape)
 
-    # print("Trenovac", train_X)
-    # print("Testovac", train_y)
+    buduce = test_X[test_X.shape[0]-1]
+    buduce = buduce.reshape((1,buduce.shape[0]))
+    print(buduce.shape)
+    print(buduce)
+    # print(train_X.shape)
+    # print(train_y.shape)
+    # print(test_X.shape)
+    # print(test_y.shape)
 
-    # train_X = numpy.asarray(train_X, dtype=numpy.float64)
-    # mlp = MLPClassifier(hidden_layer_sizes=(30, 30, 30))
-    # mlp.fit(train_X, train_y)
 
     model = Sequential()
-    model.add(Dense(128, input_dim=23, activation='relu'))
+    model.add(Dense(128, input_dim=24, activation='relu'))
     model.add(Dense(256, activation='relu'))
-    model.add(Dense(23))
+    model.add(Dense(24))
     model.compile(loss='mean_squared_error', optimizer='adam')
     model.summary()
     model.fit(train_X, train_y, epochs=100, batch_size=48 , validation_split=0.1, verbose=2)
-
-   #  model.add(Dropout(0.15))
-   #  model.add(Dense(128, input_shape=(24,1)))
-   #  model.add(Activation('relu'))
-   #  model.add(Dropout(0.15))
-   #  model.add(Dense(24,input_shape=(24,1)))
-   #  model.add(Activation('relu'))
-   #  model.compile(loss='mse', optimizer='adam')
-   # model.fit(train_X, train_y, epochs=10, batch_size=512, validation_split=0.1, verbose=2)
     start = time.time()
 
     preds = model.predict(train_X)
+    print(preds.shape)
     print("TRENOVACIE")
     # print("MAPE trenovacie ", mean_absolute_percentage_error(train_y, preds))
     # nsamples, nx = train_y.shape
@@ -184,9 +168,26 @@ def main():
     # preds = preds.reshape((nsamples, nx ))
     preds = scaler.inverse_transform(preds)
 
+    preds = preds.ravel()
+    test_y = test_y.ravel()
+
+    pyplot.plot(test_y)
+    pyplot.plot(preds)
+    pyplot.show()
     print("MAPE testovacie ", mean_absolute_percentage_error(test_y, preds))
 
     # print("RMSE je ", math.sqrt(mean_squared_error(actuals,preds)))
+
+    preds = model.predict(buduce)
+    preds = scaler.inverse_transform(preds)
+
+    preds = preds.ravel()
+    print("NEXT VALUES: ", preds)
+
+    pyplot.plot(dataset)
+    pyplot.plot(preds)
+
+    pyplot.show()
 
 
 

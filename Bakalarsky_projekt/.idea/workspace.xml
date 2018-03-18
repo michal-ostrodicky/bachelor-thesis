@@ -12,17 +12,17 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$airbase.coverage" NAME="airbase Coverage Results" MODIFIED="1519305495599" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../IAU" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$l_exercises.coverage" NAME="l_exercises Coverage Results" MODIFIED="1519854310831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../IAU/Cvicenie1/lambda" />
-    <SUITE FILE_PATH="coverage/Bakalarsky_projekt$ARIMA_wavelet.coverage" NAME="ARIMA_wavelet Coverage Results" MODIFIED="1521240823675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Bakalarsky_projekt$ARIMA_wavelet.coverage" NAME="ARIMA_wavelet Coverage Results" MODIFIED="1521383001465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$pokus.coverage" NAME="pokus Coverage Results" MODIFIED="1519507848367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$Unittests_in_tests_py.coverage" NAME="Unittests in tests.py Coverage Results" MODIFIED="1519847020388" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../IAU/Cvicenie1" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$ARIMA_GARCH.coverage" NAME="ARIMA-GARCH Coverage Results" MODIFIED="1520782952028" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Bakalarsky_projekt$LSTMneuronka.coverage" NAME="LSTMneuronka Coverage Results" MODIFIED="1521330015389" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Bakalarsky_projekt$LSTMneuronka.coverage" NAME="LSTMneuronka Coverage Results" MODIFIED="1521385253282" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$neural_network__1_.coverage" NAME="neural_network (1) Coverage Results" MODIFIED="1519498293117" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../bachelor-thesis" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1521328110575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../bachelor-thesis" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$ARIMA_GARCH_dopredu.coverage" NAME="ARIMA-GARCH_dopredu Coverage Results" MODIFIED="1518699883457" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$Unittests_in_hof_tests_py.coverage" NAME="Unittests in hof_tests.py Coverage Results" MODIFIED="1519854291805" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../IAU/Cvicenie1/higher_order_functions" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$ARIMA.coverage" NAME="ARIMA Coverage Results" MODIFIED="1520889888800" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Bakalarsky_projekt$MLPneuronka.coverage" NAME="MLPneuronka Coverage Results" MODIFIED="1521329644904" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Bakalarsky_projekt$MLPneuronka.coverage" NAME="MLPneuronka Coverage Results" MODIFIED="1521385517787" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$skuska_keras.coverage" NAME="skuska_keras Coverage Results" MODIFIED="1520275202708" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$neural_network.coverage" NAME="neural_network Coverage Results" MODIFIED="1520784327642" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../bachelor-thesis" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$lc_exercises.coverage" NAME="lc_exercises Coverage Results" MODIFIED="1519852261208" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../IAU/list_comprehension" />
@@ -59,11 +59,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="ARIMA_GARCH_postupne.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ARIMA_GARCH_postupne.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2373">
+              <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ARIMA_wavelet.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ARIMA_wavelet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="76" column="0" lean-forward="true" selection-start-line="74" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+            <state relative-caret-position="507">
+              <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding>
                 <element signature="e#451#911#0" expanded="false" />
               </folding>
@@ -71,21 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ARIMA_GARCH_postupne.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ARIMA_GARCH_postupne.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LSTMneuronka.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LSTMneuronka.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LSTMneuronka.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="96" column="24" lean-forward="false" selection-start-line="96" selection-start-column="24" selection-end-line="96" selection-end-column="24" />
+            <state relative-caret-position="357">
+              <caret line="95" column="19" lean-forward="false" selection-start-line="94" selection-start-column="2" selection-end-line="95" selection-end-column="19" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -93,14 +93,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MLPneuronka.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MLPneuronka.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MLPneuronka.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="136" column="32" lean-forward="false" selection-start-line="135" selection-start-column="6" selection-end-line="136" selection-end-column="32" />
+            <state relative-caret-position="150">
+              <caret line="174" column="22" lean-forward="false" selection-start-line="174" selection-start-column="22" selection-end-line="174" selection-end-column="22" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <element signature="e#566#1834#0" expanded="false" />
+                <element signature="e#508#1776#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -161,9 +161,9 @@
         <option value="$PROJECT_DIR$/neuronka.py" />
         <option value="$PROJECT_DIR$/series.csv" />
         <option value="$PROJECT_DIR$/prices.csv" />
-        <option value="$PROJECT_DIR$/ARIMA_wavelet.py" />
         <option value="$PROJECT_DIR$/ARIMA_GARCH_postupne.py" />
         <option value="$PROJECT_DIR$/../bachelor-thesis/Flask.py" />
+        <option value="$PROJECT_DIR$/ARIMA_wavelet.py" />
         <option value="$PROJECT_DIR$/LSTMneuronka.py" />
         <option value="$PROJECT_DIR$/MLPneuronka.py" />
       </list>
@@ -175,7 +175,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="960" />
     <option name="width" value="960" />
     <option name="height" value="1032" />
@@ -195,6 +195,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -220,7 +221,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -256,7 +256,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.LSTMneuronka">
+  <component name="RunManager" selected="Python.MLPneuronka">
     <configuration name="ARIMA_GARCH_postupne" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -356,11 +356,11 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.LSTMneuronka" />
-        <item index="1" class="java.lang.String" itemvalue="Python.MLPneuronka" />
-        <item index="2" class="java.lang.String" itemvalue="Python.Flask" />
-        <item index="3" class="java.lang.String" itemvalue="Python.ARIMA_GARCH_postupne" />
-        <item index="4" class="java.lang.String" itemvalue="Python.ARIMA_wavelet" />
+        <item index="0" class="java.lang.String" itemvalue="Python.MLPneuronka" />
+        <item index="1" class="java.lang.String" itemvalue="Python.LSTMneuronka" />
+        <item index="2" class="java.lang.String" itemvalue="Python.ARIMA_wavelet" />
+        <item index="3" class="java.lang.String" itemvalue="Python.Flask" />
+        <item index="4" class="java.lang.String" itemvalue="Python.ARIMA_GARCH_postupne" />
       </list>
     </recent_temporary>
   </component>
@@ -410,7 +410,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1050" extended-state="7" />
+    <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20572917" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -455,23 +455,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ARIMA_wavelet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="11" selection-end-column="34" />
-          <folding>
-            <element signature="e#451#911#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="987">
-          <caret line="47" column="85" lean-forward="false" selection-start-line="47" selection-start-column="78" selection-end-line="47" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../bachelor-thesis/Flask.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1134">
@@ -491,13 +474,6 @@
     <entry file="file://$PROJECT_DIR$/ARIMA-GARCH_dopredu.py" />
     <entry file="file://$PROJECT_DIR$/../Flask/templates/home.html" />
     <entry file="file://$PROJECT_DIR$/ARIMA_PyFlux.py" />
-    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/statsmodels/compat/pandas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1050">
-          <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../bachelor-thesis/templates/ab.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
@@ -722,41 +698,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ARIMA_GARCH_postupne.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2373">
+          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/statsmodels/compat/pandas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train_y.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train_x.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ARIMA_wavelet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="76" column="0" lean-forward="true" selection-start-line="74" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+        <state relative-caret-position="507">
+          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
           <folding>
             <element signature="e#451#911#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ARIMA_GARCH_postupne.py">
+    <entry file="file://$PROJECT_DIR$/LSTMneuronka.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="357">
+          <caret line="95" column="19" lean-forward="false" selection-start-line="94" selection-start-column="2" selection-end-line="95" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MLPneuronka.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="136" column="32" lean-forward="false" selection-start-line="135" selection-start-column="6" selection-end-line="136" selection-end-column="32" />
+        <state relative-caret-position="150">
+          <caret line="174" column="22" lean-forward="false" selection-start-line="174" selection-start-column="22" selection-end-line="174" selection-end-column="22" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#566#1834#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LSTMneuronka.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="96" column="24" lean-forward="false" selection-start-line="96" selection-start-column="24" selection-end-line="96" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#508#1776#0" expanded="false" />
           </folding>
         </state>
       </provider>
