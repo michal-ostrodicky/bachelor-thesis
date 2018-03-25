@@ -16,13 +16,13 @@
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$pokus.coverage" NAME="pokus Coverage Results" MODIFIED="1519507848367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$Unittests_in_tests_py.coverage" NAME="Unittests in tests.py Coverage Results" MODIFIED="1519847020388" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../IAU/Cvicenie1" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$ARIMA_GARCH.coverage" NAME="ARIMA-GARCH Coverage Results" MODIFIED="1520782952028" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Bakalarsky_projekt$LSTMneuronka.coverage" NAME="LSTMneuronka Coverage Results" MODIFIED="1521385253282" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Bakalarsky_projekt$LSTMneuronka.coverage" NAME="LSTMneuronka Coverage Results" MODIFIED="1521752390416" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$neural_network__1_.coverage" NAME="neural_network (1) Coverage Results" MODIFIED="1519498293117" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../bachelor-thesis" />
-    <SUITE FILE_PATH="coverage/Bakalarsky_projekt$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1521328110575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../bachelor-thesis" />
+    <SUITE FILE_PATH="coverage/Bakalarsky_projekt$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1522005411144" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../bachelor-thesis" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$ARIMA_GARCH_dopredu.coverage" NAME="ARIMA-GARCH_dopredu Coverage Results" MODIFIED="1518699883457" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$Unittests_in_hof_tests_py.coverage" NAME="Unittests in hof_tests.py Coverage Results" MODIFIED="1519854291805" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../IAU/Cvicenie1/higher_order_functions" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$ARIMA.coverage" NAME="ARIMA Coverage Results" MODIFIED="1520889888800" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Bakalarsky_projekt$MLPneuronka.coverage" NAME="MLPneuronka Coverage Results" MODIFIED="1521385517787" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Bakalarsky_projekt$MLPneuronka.coverage" NAME="MLPneuronka Coverage Results" MODIFIED="1521752561019" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$skuska_keras.coverage" NAME="skuska_keras Coverage Results" MODIFIED="1520275202708" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$neural_network.coverage" NAME="neural_network Coverage Results" MODIFIED="1520784327642" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../bachelor-thesis" />
     <SUITE FILE_PATH="coverage/Bakalarsky_projekt$lc_exercises.coverage" NAME="lc_exercises Coverage Results" MODIFIED="1519852261208" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../IAU/list_comprehension" />
@@ -38,22 +38,10 @@
       <file leaf-file-name="Flask.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../bachelor-thesis/Flask.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1029">
-              <caret line="59" column="63" lean-forward="false" selection-start-line="59" selection-start-column="63" selection-end-line="59" selection-end-column="63" />
+            <state relative-caret-position="1386">
+              <caret line="66" column="87" lean-forward="false" selection-start-line="66" selection-start-column="87" selection-end-line="66" selection-end-column="87" />
               <folding>
                 <element signature="e#0#48#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="neural_network.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../bachelor-thesis/neural_network.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="6" column="12" lean-forward="false" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="12" />
-              <folding>
-                <element signature="e#581#1849#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -62,8 +50,8 @@
       <file leaf-file-name="ARIMA_GARCH_postupne.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ARIMA_GARCH_postupne.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2373">
-              <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+            <state relative-caret-position="528">
+              <caret line="113" column="23" lean-forward="false" selection-start-line="113" selection-start-column="23" selection-end-line="113" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -72,8 +60,8 @@
       <file leaf-file-name="ARIMA_wavelet.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ARIMA_wavelet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="507">
-              <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+            <state relative-caret-position="756">
+              <caret line="72" column="20" lean-forward="true" selection-start-line="72" selection-start-column="20" selection-end-line="72" selection-end-column="20" />
               <folding>
                 <element signature="e#451#911#0" expanded="false" />
               </folding>
@@ -81,11 +69,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LSTMneuronka.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LSTMneuronka.py">
+      <file leaf-file-name="ARIMA_wavelet.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../bachelor-thesis/ARIMA_wavelet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="95" column="19" lean-forward="false" selection-start-line="94" selection-start-column="2" selection-end-line="95" selection-end-column="19" />
+            <state relative-caret-position="147">
+              <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -93,11 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MLPneuronka.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MLPneuronka.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MLPneuronka.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="174" column="22" lean-forward="false" selection-start-line="174" selection-start-column="22" selection-end-line="174" selection-end-column="22" />
+            <state relative-caret-position="378">
+              <caret line="61" column="11" lean-forward="false" selection-start-line="61" selection-start-column="4" selection-end-line="61" selection-end-column="11" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
                 <element signature="e#508#1776#0" expanded="false" />
@@ -149,23 +137,24 @@
         <option value="$PROJECT_DIR$/../IAU/Cvicenie1/higher_order_functions/hof_exercises.py" />
         <option value="$PROJECT_DIR$/../IAU/Cvicenie1/higher_order_functions/hof_tests.py" />
         <option value="$PROJECT_DIR$/../IAU/Cvicenie1/lambda/l_exercises.py" />
-        <option value="$PROJECT_DIR$/../bachelor-thesis/templates/upload.html" />
         <option value="$PROJECT_DIR$/ARIMA-GARCH.py" />
-        <option value="$PROJECT_DIR$/../bachelor-thesis/templates/prediction.html" />
         <option value="$PROJECT_DIR$/skuska_keras.py" />
         <option value="$PROJECT_DIR$/../bachelor-thesis/ARIMA-GARCH.py" />
         <option value="$PROJECT_DIR$/../bachelor-thesis/prices.csv" />
-        <option value="$PROJECT_DIR$/../bachelor-thesis/neural_network.py" />
         <option value="$PROJECT_DIR$/ARIMA.py" />
-        <option value="$PROJECT_DIR$/../bachelor-thesis/ARIMA_wavelet.py" />
         <option value="$PROJECT_DIR$/neuronka.py" />
         <option value="$PROJECT_DIR$/series.csv" />
         <option value="$PROJECT_DIR$/prices.csv" />
         <option value="$PROJECT_DIR$/ARIMA_GARCH_postupne.py" />
-        <option value="$PROJECT_DIR$/../bachelor-thesis/Flask.py" />
         <option value="$PROJECT_DIR$/ARIMA_wavelet.py" />
-        <option value="$PROJECT_DIR$/LSTMneuronka.py" />
         <option value="$PROJECT_DIR$/MLPneuronka.py" />
+        <option value="$PROJECT_DIR$/LSTMneuronka.py" />
+        <option value="$PROJECT_DIR$/../bachelor-thesis/templates/index.html" />
+        <option value="$PROJECT_DIR$/../bachelor-thesis/templates/upload.html" />
+        <option value="$PROJECT_DIR$/../bachelor-thesis/templates/prediction.html" />
+        <option value="$PROJECT_DIR$/../bachelor-thesis/Flask.py" />
+        <option value="$PROJECT_DIR$/../bachelor-thesis/ARIMA_wavelet.py" />
+        <option value="$PROJECT_DIR$/../bachelor-thesis/neural_network.py" />
       </list>
     </option>
   </component>
@@ -196,6 +185,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -212,16 +202,10 @@
               <item name="bachelor-thesis" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Bakalarsky_projekt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bachelor-thesis" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -230,18 +214,18 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Michal\PycharmProjects\IAU\Cvicenie1" />
-      <recent name="C:\Users\Michal\PycharmProjects\bachelor-thesis" />
-      <recent name="C:\Users\Michal\PycharmProjects\bachelor-thesis\predictions" />
-      <recent name="C:\Users\Michal\PycharmProjects\IAU" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Michal\PycharmProjects\bachelor-thesis" />
       <recent name="C:\Users\Michal\PycharmProjects\bachelor-thesis\templates" />
       <recent name="C:\Users\Michal\PycharmProjects\IAU" />
       <recent name="C:\Users\Michal\PycharmProjects\IAU\higher_order_functions" />
       <recent name="C:\Users\Michal\PycharmProjects\Flask" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Michal\PycharmProjects\IAU\Cvicenie1" />
+      <recent name="C:\Users\Michal\PycharmProjects\bachelor-thesis" />
+      <recent name="C:\Users\Michal\PycharmProjects\bachelor-thesis\predictions" />
+      <recent name="C:\Users\Michal\PycharmProjects\IAU" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -256,7 +240,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.MLPneuronka">
+  <component name="RunManager" selected="Python.Flask">
     <configuration name="ARIMA_GARCH_postupne" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -356,10 +340,10 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.MLPneuronka" />
-        <item index="1" class="java.lang.String" itemvalue="Python.LSTMneuronka" />
-        <item index="2" class="java.lang.String" itemvalue="Python.ARIMA_wavelet" />
-        <item index="3" class="java.lang.String" itemvalue="Python.Flask" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Flask" />
+        <item index="1" class="java.lang.String" itemvalue="Python.MLPneuronka" />
+        <item index="2" class="java.lang.String" itemvalue="Python.LSTMneuronka" />
+        <item index="3" class="java.lang.String" itemvalue="Python.ARIMA_wavelet" />
         <item index="4" class="java.lang.String" itemvalue="Python.ARIMA_GARCH_postupne" />
       </list>
     </recent_temporary>
@@ -411,7 +395,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20572917" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -419,7 +402,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30837005" sideWeight="0.68958336" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30837005" sideWeight="0.68958336" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -443,35 +426,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="jinja2-line">
-          <url>file://$PROJECT_DIR$/../bachelor-thesis/templates/index.html</url>
-          <line>45</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="10" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/Flask.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1134">
-          <caret line="54" column="42" lean-forward="true" selection-start-line="54" selection-start-column="42" selection-end-line="54" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ARIMA-GARCH_dopredu.py" />
-    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/Flask.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="38" lean-forward="true" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ARIMA-GARCH_dopredu.py" />
-    <entry file="file://$PROJECT_DIR$/ARIMA-GARCH_dopredu.py" />
     <entry file="file://$PROJECT_DIR$/../Flask/templates/home.html" />
     <entry file="file://$PROJECT_DIR$/ARIMA_PyFlux.py" />
     <entry file="file://$PROJECT_DIR$/../bachelor-thesis/templates/ab.html">
@@ -609,20 +568,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/templates/upload.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="51" column="30" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="95" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/templates/prediction.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1239">
-          <caret line="59" column="12" lean-forward="false" selection-start-line="59" selection-start-column="12" selection-end-line="59" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../bachelor-thesis/model.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -630,24 +575,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/ARIMA_wavelet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/series_s.csv" />
-    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/neural_network.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="12" lean-forward="false" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="12" />
-          <folding>
-            <element signature="e#581#1849#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/series.csv" />
     <entry file="file://$PROJECT_DIR$/neuronka.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -671,14 +599,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1182">
-          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ARIMA-GARCH_dopredu.py" />
     <entry file="file://$PROJECT_DIR$/ARIMA-GARCH.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -688,24 +608,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ARIMA.py" />
-    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/Flask.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1029">
-          <caret line="59" column="63" lean-forward="false" selection-start-line="59" selection-start-column="63" selection-end-line="59" selection-end-column="63" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ARIMA_GARCH_postupne.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2373">
-          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/statsmodels/compat/pandas.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1050">
@@ -727,33 +629,129 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/static/css/theme.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="1" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/static/css/theme.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-110681">
+          <caret line="6" column="36" lean-forward="true" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/static/js/bootstrap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="199" column="3" lean-forward="true" selection-start-line="199" selection-start-column="3" selection-end-line="199" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/static/js/bootstrap.bundle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LSTMneuronka.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2625">
+          <caret line="137" column="24" lean-forward="false" selection-start-line="137" selection-start-column="24" selection-end-line="137" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#18#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARIMA_GARCH_postupne.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="113" column="23" lean-forward="false" selection-start-line="113" selection-start-column="23" selection-end-line="113" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MLPneuronka.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="61" column="11" lean-forward="false" selection-start-line="61" selection-start-column="4" selection-end-line="61" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#508#1776#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ARIMA_wavelet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+        <state relative-caret-position="756">
+          <caret line="72" column="20" lean-forward="true" selection-start-line="72" selection-start-column="20" selection-end-line="72" selection-end-column="20" />
           <folding>
             <element signature="e#451#911#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LSTMneuronka.py">
+    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/templates/upload.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="95" column="19" lean-forward="false" selection-start-line="94" selection-start-column="2" selection-end-line="95" selection-end-column="19" />
+        <state relative-caret-position="1119">
+          <caret line="89" column="201" lean-forward="false" selection-start-line="89" selection-start-column="201" selection-end-line="89" selection-end-column="201" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="63" lean-forward="false" selection-start-line="12" selection-start-column="63" selection-end-line="12" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/templates/styleguide.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5418">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/templates/prediction.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1281">
+          <caret line="61" column="12" lean-forward="true" selection-start-line="61" selection-start-column="12" selection-end-line="61" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/Flask.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1386">
+          <caret line="66" column="87" lean-forward="false" selection-start-line="66" selection-start-column="87" selection-end-line="66" selection-end-column="87" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#48#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MLPneuronka.py">
+    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/neural_network.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="174" column="22" lean-forward="false" selection-start-line="174" selection-start-column="22" selection-end-line="174" selection-end-column="22" />
+        <state relative-caret-position="-627">
+          <caret line="3" column="35" lean-forward="false" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../bachelor-thesis/ARIMA_wavelet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#508#1776#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -140,8 +140,8 @@ def main():
 
     preds = preds.ravel()
     test_y = test_y.ravel()
-    pyplot.plot(preds)
     pyplot.plot(test_y)
+    pyplot.plot(preds)
     pyplot.show()
     print("MAPE testovacie ", mean_absolute_percentage_error(test_y,preds))
 
@@ -153,9 +153,9 @@ def main():
     preds = preds.ravel()
     print("NEXT VALUES: ", preds)
 
-    pyplot.plot(preds)
-    pyplot.plot(dataset)
-    pyplot.show()
+    # pyplot.plot(preds)
+    # pyplot.plot(dataset)
+    # pyplot.show()
 
 
 

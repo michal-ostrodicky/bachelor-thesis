@@ -18,15 +18,16 @@ global data,market
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
 
-def allowed_file(filename):
-    return '.' in filename and \
-        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 #
@@ -60,9 +61,10 @@ def upload_file():
             ## otvorenie file podla toho, aky extension ma file
 
             if(file_extension == '.xls' ):
+                print(path_saved_file)
                 data_xls = pd.read_excel(path_saved_file, filename_without_extension, index_col=None)
-                data_xls.to_csv('prices.csv', encoding='utf-8')
-                data_csv = pd.read_csv("prices.csv")
+                data_xls.to_csv(os.path.join(app.config['UPLOAD_FOLDER']) + "/" + filename_without_extension + '.csv', encoding='utf-8')
+                data_csv = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER']) + "/" + filename_without_extension + '.csv')
 
             elif(file_extension == '.csv'):
                 data_csv = pd.read_csv(path_saved_file)
@@ -104,11 +106,10 @@ def choose_label():
 def predict():
     if request.method == 'POST':
         bullshit = request.values
-
+        data[market].fillna((data[market].mean()), inplace=True)
         size = int(len(data[market].values) * 0.66)
-        datum = data['Hours'][size:len(data[market].values)].values
         data[market] = wavelet_smooth(data[market].values)
-        model_fit,rmse_statistical = prediction_arima_flask(data[market].values,market,size)
+        model_fit,mape_statistical,result_arima = prediction_arima_flask(data[market].values,market,size)
 
 
         datumy = [None] * 25
@@ -116,36 +117,21 @@ def predict():
         last_date = pd.to_datetime(end_date)
         datumy[0] = last_date + td
 
-        output = model_fit.forecast(24)
-
         for i in range(24):
             datumy[i + 1] = datumy[i] + td
 
-        rmse_statistical = np.round(rmse_statistical, 2)
-        output =np.round(output[0], 2)
+        mape_statistical = np.round(mape_statistical, 2)
+        output =np.round(result_arima, 2)
         result_arima = [datumy, output]
 
-        # model_json = model.to_json()
-        # with open("model.json", "w") as json_file:
-        #     json_file.write(model_json)
-        # # serialize weights to HDF5
-        # model.save_weights("model.h5")
-
-        json_file = open('model.json', 'r')
-        loaded_model_json = json_file.read()
-        json_file.close()
-        loaded_model = model_from_json(loaded_model_json)
-        # load weights into new model
-        loaded_model.load_weights("model.h5")
+        model_neural,mape_network,result_network = prediction_neural_network_flask(data,market)
+        mape_network = np.round(mape_network, 2)
+        output = np.round(result_network, 2)
+        result_network = [datumy, output]
 
 
-       # model_neural,rmse_network = prediction_neural_network_flask(dataset)
-        # rmse_network = np.round(rmse_network, 2)
-        # data_neural = data.drop(data.columns[0:2], 1)
-        # print(train_network(data_neural,market))
-        # print(model_neural.predict_generator(steps=24))
-        return render_template('prediction.html', rmse_statistical = rmse_statistical, rmse_network = None,
-
+        return render_template('prediction.html', mape_statistical = mape_statistical, mape_network = mape_network,
+                                result_network = result_network,
                                result_arima = result_arima, market = market)
 
 

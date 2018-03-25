@@ -184,10 +184,10 @@ def main():
     preds = preds.ravel()
     print("NEXT VALUES: ", preds)
 
-    pyplot.plot(dataset)
-    pyplot.plot(preds)
-
-    pyplot.show()
+   # pyplot.plot(dataset)
+   #  pyplot.plot(preds)
+   #
+   #  pyplot.show()
 
 
 

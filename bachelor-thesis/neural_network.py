@@ -1,153 +1,138 @@
-import numpy
-import pandas as pd
-import math
+import numpy as np
+from numpy import array
 from keras.models import Sequential
-from keras.layers import Dense
+from keras.layers.core import Dense
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.model_selection import KFold
+import time
+from matplotlib import pyplot
 
-# convert an array of values into a dataset matrix
-def create_dataset(dataset, look_back=3):
-    dataX, dataY = [], []
-    for i in range(len(dataset) - look_back - 1):
-        a = dataset[i:(i + look_back), 0]
-        dataX.append(a)
-        dataY.append(dataset[i + look_back, 0])
+def mean_absolute_percentage_error(y_true, y_pred):
+    y_true, y_pred = np.array(y_true), np.array(y_pred)
+    return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
 
-    return numpy.array(dataX), numpy.array(dataY)
 
-def prediction_neural_network_flask(X):
-    train_size = int(len(X) * 0.67)
-    train, test = X[0:train_size, :], X[train_size:len(X), :]
-    print(train)
 
-    # reshape dataset
-    look_back = 2
-    trainX, trainY = create_dataset(train, look_back)
-    testX, testY = create_dataset(test, look_back)
+def prediction_neural_network_flask(X,market):
+    dataset = X[market].values
 
-    # create and fit Multilayer Perceptron model
+    n = X.shape[0]
+    print(n)
+    dataset = dataset.reshape(-1, 1)
+    scaler = MinMaxScaler(feature_range=(0, 1))
+    scaled = scaler.fit_transform(dataset)
+    series = array(scaled)
+
+    nrow = round(0.8 * series.shape[0]) - (round(0.8 * series.shape[0]) % 25)
+
+    train_end = round(0.8 * series.shape[0]) - (round(0.8 * series.shape[0]) % 25)
+    test_start = train_end + 1
+    test_end = n
+    index = (test_end - test_start) - ((test_end - test_start) % 25)
+
+    series = series.ravel()
+    train = np.zeros(train_end)
+    test = np.zeros(n - test_start)
+    train = series[0:train_end]
+    test = series[test_start:test_end]
+
+    length = 25
+
+    samples = np.empty((0, length), dtype=float)
+
+    for i in range(0, nrow, length):
+        sample = train[i:i + length]
+        samples = np.append(samples, sample.reshape(1, 25), axis=0)
+
+    # print(len(samples))
+
+    train_data = np.array(samples)
+    # print(train_data.shape)
+    # print(train_data)
+
+    train_data = train_data.reshape((len(samples), length))
+    # print(train_data.shape)
+
+
+    samples = np.empty((0, length), dtype=float)
+
+    for i in range(0, index, length):
+        sample = test[i:i + length]
+        samples = np.append(samples, sample.reshape(1, 25), axis=0)
+    # print(len(samples))
+
+    test_data = np.array(samples)
+    # print(train_data.shape)
+    # print(train_data)
+
+    test_data = test_data.reshape((len(samples), length))
+
+    train_X = train_data[:, :-1]
+    train_y = train_data[:, 1:]
+    test_X = test_data[:, :-1]
+    test_y = test_data[:, 1:]
+
+    buduce = test_X[test_X.shape[0] - 1]
+    buduce = buduce.reshape((1, buduce.shape[0]))
+
     model = Sequential()
-    model.add(Dense(48, input_dim=look_back, activation='relu'))
-    model.add(Dense(16, activation='relu'))
-    model.add(Dense(1))
+    model.add(Dense(128, input_dim=24, activation='relu'))
+    model.add(Dense(256, activation='relu'))
+    model.add(Dense(24))
     model.compile(loss='mean_squared_error', optimizer='adam')
-    model.fit(trainX, trainY, epochs=600, batch_size=256, verbose=2)
+    model.summary()
+    model.fit(train_X, train_y, epochs=100, batch_size=48, validation_split=0.1, verbose=2)
+    start = time.time()
 
-    # Estimate model performance
-    trainScore = model.evaluate(trainX, trainY, verbose=0)
-    print('Train Score: %.2f MSE (%.2f RMSE)' % (trainScore, math.sqrt(trainScore)))
-    testScore = model.evaluate(testX, testY, verbose=0)
-    print('Test Score: %.2f MSE (%.2f RMSE)' % (testScore, math.sqrt(testScore)))
+    preds = model.predict(train_X)
+    print(preds.shape)
+    print("TRENOVACIE")
+    # print("MAPE trenovacie ", mean_absolute_percentage_error(train_y, preds))
+    # nsamples, nx = train_y.shape
+    # train_y = train_y.reshape((nsamples, nx))
+    train_y = scaler.inverse_transform(train_y)
+    # nsamples, nx = preds.shape
+    # preds = preds.reshape((nsamples, nx))
+    preds = scaler.inverse_transform(preds)
+    print("MAPE trenovacich ", mean_absolute_percentage_error(train_y, preds))
 
-    # Estimate model performance
-    trainScore = model.evaluate(trainX, trainY, verbose=0)
-    print('Train Score: %.2f MSE (%.2f RMSE)' % (trainScore, math.sqrt(trainScore)))
-    testScore = model.evaluate(testX, testY, verbose=0)
-    print('Test Score: %.2f MSE (%.2f RMSE)' % (testScore, math.sqrt(testScore)))
+    print("> Compilation Time : ", time.time() - start)
+    preds = model.predict(test_X)
+    print(preds)
+    # preds.to_csv('preds.csv',sep=" ")
+    print("TESTOVACIE")
 
+    # print("MAPE testovacie nenormalizovane", mean_absolute_percentage_error(train_y, preds))
+    # nsamples, nx = test_y.shape
+    # test_y = test_y.reshape((nsamples, nx))
+    test_y = scaler.inverse_transform(test_y)
 
-    return model,math.sqrt(testScore)
+    # nsamples, nx = preds.shape
+    # preds = preds.reshape((nsamples, nx ))
+    preds = scaler.inverse_transform(preds)
+
+    preds = preds.ravel()
+    test_y = test_y.ravel()
+
+    MAPE = mean_absolute_percentage_error(test_y, preds)
+    print("MAPE testovacie ", MAPE)
+
+    # print("RMSE je ", math.sqrt(mean_squared_error(actuals,preds)))
+
+    preds = model.predict(buduce)
+    preds = scaler.inverse_transform(preds)
+
+    preds = preds.ravel()
+    print("NEXT VALUES: ", preds)
+    return model,MAPE, preds
 
 def main():
-    # fix random seed for reproducibility
-    # numpy.random.seed(7)
+   pass
 
-
-    # load the dataset
-    data_csv = pd.read_csv("prices.csv")
-    dataset = data_csv['Bergen'].values
-    dataset = dataset.astype('float32')
-    dataset = dataset[:,None]
-
-
-    kf = KFold(n_splits=2)
-
-
-    trainRMSE = list()
-    testRMSE = list()
-
-
-    for train_indices, test_indices in kf.split(dataset):
-        # reshape dataset
-        look_back = 3
-        # print('Train: %s | test: %s' % (train_indices, test_indices))
-
-        train = dataset[train_indices,:]
-        test = dataset[test_indices, :]
-
-        # scaler = MinMaxScaler(feature_range=(-1, 1))
-        # scaler.fit(train)
-        # train = scaler.transform(train)
-        # test = scaler.transform(test)
-
-        # print(train_indices,test_indices.shape)
-        trainX, trainY = create_dataset(train, look_back)
-        testX, testY = create_dataset(test, look_back)
-
-
-        # create and fit Multilayer Perceptron model
-        # model = Sequential()
-        # model.add(Dense(48, input_dim=look_back, activation='relu'))
-        # model.add(Dense(16, activation='relu'))
-        # model.add(Dense(1))
-        # model.compile(loss='mean_squared_error', optimizer='adam')
-        # model.fit(trainX, trainY, epochs=600, batch_size=256, verbose=2)
-        #
-        #
-        #
-        #
-        # trainScore = model.evaluate(trainX, trainY, verbose=0)
-        # print('Train Score: %.2f MSE (%.2f RMSE)' % (trainScore, math.sqrt(trainScore)))
-        # testScore = model.evaluate(testX, testY, verbose=0)
-        # print('Test Score: %.2f MSE (%.2f RMSE)' % (testScore, math.sqrt(testScore)))
-        # trainRMSE.append(math.sqrt(trainScore))
-        # testRMSE.append(math.sqrt(testScore))
-
-
-
-    # Estimate model performance
-
-    # print("Trenovacie RMSE ", trainRMSE)
-    # print("Testovacie RMSE ", testRMSE)
-    # print("Priemerna hodnota RMSE na testovacich: ", sum(trainRMSE)/ float(len(trainRMSE)))
-    # print("Priemerna hodnota RMSE na testovacich: ", sum(testRMSE) / float(len(testRMSE)))
-    # print("Testovacia x", testX)
-    # print("Testovacie y ",testY)
-    # # generate predictions for training
-    # # trainPredict = model.predict(trainX)
-    # predikcia= model.predict(testY)
-    # print(predikcia)
 
 
 
 if __name__ == '__main__':
     main()
-
-
-
-# sns.distplot(data[market]);
-
-# Plots
-# data.index = data_csv['Hours'].values
-# plt.figure(figsize=(18,9))
-# plt.plot(data.index,data[market])
-# plt.legend(loc='upper right')
-# plt.ylabel('Price')
-# plt.xlabel('Date')
-# plt.title('Price of electricity');
-# plt.legend(loc='upper right')
-# plt.grid(which='major', axis='both', linestyle='--')
-# plt.show()
-#
-#
-# fig = plt.figure(figsize=(12,8))
-# ax1 = fig.add_subplot(211)
-# fig = sm.graphics.tsa.plot_acf(data[market], lags=40, ax=ax1)
-# ax2 = fig.add_subplot(212)
-# fig = sm.graphics.tsa.plot_pacf(data[market], lags=40, ax=ax2)
-# plt.show()
-
 
 
 
