@@ -1,14 +1,13 @@
-from flask import Flask,render_template, request
-from werkzeug.utils import secure_filename
-from os.path import join, dirname, realpath
 import os
-import math
+from os.path import join, dirname, realpath
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from ARIMA_wavelet import wavelet_smooth,prediction_arima_flask
+from flask import Flask, render_template, request
+from werkzeug.utils import secure_filename
+
 from neural_network import prediction_neural_network_flask
-import matplotlib.pyplot as plt
-from keras.models import model_from_json
 
 UPLOAD_FOLDER = join(dirname(realpath(__file__)), 'static/uploads')
 
@@ -27,14 +26,6 @@ def allowed_file(filename):
 def index():
     return render_template('index.html')
 
-
-
-
-#
-# @app.route('/uploads/<filename>')
-# def uploaded_file(filename):
-#     return send_from_directory(app.config['UPLOAD_FOLDER'],
-#                                filename)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -74,7 +65,7 @@ def upload_file():
 
 
             data = data_csv
-
+            print(data['Hours'])
             #print(column_names)
             info_data = [0,0,'','']
             info_data[0] = data.shape[0]
@@ -83,6 +74,7 @@ def upload_file():
             end_date = data.iat[data.shape[0]-1,0]
             info_data[2]= data.iat[0,0] # start date
             info_data[3] = data.iat[data.shape[0]-1,0] # end date
+
             return render_template('upload.html', info =info_data, labels = column_names[2:])
         else:
             return render_template('index.html', invalid_extension = True)
@@ -93,13 +85,11 @@ def choose_label():
     if request.method == 'POST':
         global market
         market = request.form["label_to_predict"]
-        plot_label(data, market)
         full_filename = 'chart.png'
         fancy_data = data[market].describe()
-        # print(fancy_data)
         column_names = list(data.columns.values)
         fancy_data = np.round(fancy_data, 2)
-        return render_template('upload.html', info= info_data, statistics = fancy_data ,to_predict= market, labels = column_names[2:], uploded_file = True, market_plot = full_filename)
+        return render_template('upload.html', info= info_data, statistics = fancy_data ,to_predict= market, labels = column_names[2:], uploded_file = True)
 
 
 @app.route('/predict', methods=['POST'])
@@ -115,7 +105,8 @@ def predict():
         datumy = [None] * 25
         td = np.timedelta64(1, 'h')
         last_date = pd.to_datetime(end_date)
-        datumy[0] = last_date + td
+
+        datumy[0] = last_date + 24*td
 
         for i in range(24):
             datumy[i + 1] = datumy[i] + td
@@ -130,16 +121,33 @@ def predict():
         result_network = [datumy, output]
 
 
-        return render_template('prediction.html', mape_statistical = mape_statistical, mape_network = mape_network,
-                                result_network = result_network,
+        return render_template('prediction.html', mape_statistical = mape_statistical,
+                               mape_network = mape_network, result_network = result_network,
                                result_arima = result_arima, market = market)
 
+# def plot_label(data_csv, market):
+# # Pridanie hodiny k datumu
+#     dates = data_csv[data_csv.columns[0:2]]
+#     dates.columns = ['Day', 'Hour']
+#     dates['Hour'] = dates['Hour'].map(lambda x: str(x)[2:])
+#
+#     df = pd.DataFrame(dates)
+#     df['Period'] = df.Day.astype(str).str.cat(df.Hour.astype(str), sep=' ')
+#     df['Period'] = pd.to_datetime(df["Period"])
+#
+#     data_csv['Hours'] = df['Period']
+#     data_csv = data_csv.drop(data_csv.columns[[0]], axis=1)
+#     data.index = data_csv['Hours'].values
+#
+#     sns_plot = sns.tsplot(data=data[market])
+#     fig = sns_plot.gcf()
+#     fig.savefig('output.png')
 
 def plot_label(data_csv,market):
     # Pridanie hodiny k datumu
     dates = data_csv[data_csv.columns[0:2]]
     dates.columns = ['Day', 'Hour']
-    dates['Hour'] = dates['Hour'].map(lambda x: str(x)[:2])
+    dates['Hour'] = dates['Hour'].map(lambda x: str(x)[2:])
 
     df = pd.DataFrame(dates)
     df['Period'] = df.Day.astype(str).str.cat(df.Hour.astype(str), sep=' ')
@@ -148,7 +156,6 @@ def plot_label(data_csv,market):
     data_csv['Hours'] = df['Period']
     data_csv = data_csv.drop(data_csv.columns[[0]], axis=1)
 
-    # sns.distplot(data[market]);
 
     # Plots
     data.index = data_csv['Hours'].values
@@ -161,8 +168,10 @@ def plot_label(data_csv,market):
     plt.legend(loc='upper right')
     plt.grid(which='major', axis='both', linestyle='--')
     plt.savefig(os.path.join(app.config['UPLOAD_FOLDER']+ "/" + 'chart.png'))
-    # path_saved_file = os.path.join(app.config['UPLOAD_FOLDER']) + "/" + filename
+#     # path_saved_file = os.path.join(app.config['UPLOAD_FOLDER']) + "/" + filename
 
 
 if __name__ == '__main__':
     app.run(debug = True)
+
+

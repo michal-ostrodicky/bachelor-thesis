@@ -10,7 +10,7 @@
 <body>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <div class="container">
-      <a class="navbar-brand" href="#">Prediction of electricity prices</a>
+      <a class="navbar-brand" href="http://147.175.149.78:8081/">Prediction of electricity prices</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar3SupportedContent" aria-controls="navbar3SupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span> </button>
       <div class="collapse navbar-collapse text-center justify-content-center" id="navbar3SupportedContent"> </div>
@@ -20,17 +20,21 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h1 class="display-4">{{ market }} prices </h1>
+          <h1 class="display-4">{{ market }} day ahead prices </h1>
           <div class="row">
             <div class="col-md-6">
               <h1 class="">ARIMA model</h1>
               <div class="row">
                 <div class="col-md-6">
-                  <p class="lead">Time:</p> {% for i in range(24) %}
-                  <p class="">{{ result[0][i] }} </p> {% endfor %} </div>
-                <div class="col-md-6">
-                  <p class="lead">Value:</p> {% for i in range(24) %}
-                  <p class="">{{ result[1][i] }} </p> {% endfor %} </div>
+                  <p class="text-center"> Model accuracy MAPE: {{ mape_statistical }}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6"> {% for i in range(24) %}
+                  <p class="">{{ result_arima[0][i] }} </p> {% endfor %} </div>
+                <div class="col-md-6"> {% for i in range(24) %}
+                  <p class="">{{ result_arima[1][i] }} {% endfor %} </p>
+                </div>
               </div>
             </div>
             <div class="col-md-6">
@@ -38,11 +42,14 @@
                 <br> </h1>
               <div class="row">
                 <div class="col-md-6">
-                  <p class="lead">Time:</p> {% for i in range(24) %}
-                  <p class=""> </p> {% endfor %} </div>
-                <div class="col-md-6">
-                  <p class="lead">Value:</p> {% for i in range(24) %}
-                  <p class=""> </p> {% endfor %} </div>
+                  <p class="text-center"> Model accuracy MAPE: {{ mape_network }}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6"> {% for i in range(24) %}
+                  <p class="">{{ result_network[0][i] }} </p> {% endfor %} </div>
+                <div class="col-md-6"> {% for i in range(24) %}
+                  <p class=""> {{ result_network[1][i] }}</p> {% endfor %} </div>
               </div>
             </div>
           </div>
@@ -51,16 +58,7 @@
     </div>
   </div>
   <div class="bg-secondary py-2">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <p class="text-center"> RMSE: {{ rmse }}</p>
-        </div>
-        <div class="col-md-6">
-          <p class="text-center"> RMSE: </p>
-        </div>
-      </div>
-    </div>
+    <div class="container"> </div>
   </div>
   <div class="py-5 bg-dark text-white">
     <div class="container">

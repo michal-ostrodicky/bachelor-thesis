@@ -4,7 +4,6 @@ from keras.models import Sequential
 from keras.layers.core import Dense
 from sklearn.preprocessing import MinMaxScaler
 import time
-from matplotlib import pyplot
 
 def mean_absolute_percentage_error(y_true, y_pred):
     y_true, y_pred = np.array(y_true), np.array(y_pred)
@@ -43,6 +42,7 @@ def prediction_neural_network_flask(X,market):
         sample = train[i:i + length]
         samples = np.append(samples, sample.reshape(1, 25), axis=0)
 
+
     # print(len(samples))
 
     train_data = np.array(samples)
@@ -57,6 +57,7 @@ def prediction_neural_network_flask(X,market):
 
     for i in range(0, index, length):
         sample = test[i:i + length]
+
         samples = np.append(samples, sample.reshape(1, 25), axis=0)
     # print(len(samples))
 
@@ -73,7 +74,7 @@ def prediction_neural_network_flask(X,market):
 
     buduce = test_X[test_X.shape[0] - 1]
     buduce = buduce.reshape((1, buduce.shape[0]))
-
+    print("TOTO POZRI buduce", scaler.inverse_transform(buduce))
     model = Sequential()
     model.add(Dense(128, input_dim=24, activation='relu'))
     model.add(Dense(256, activation='relu'))
@@ -84,8 +85,8 @@ def prediction_neural_network_flask(X,market):
     start = time.time()
 
     preds = model.predict(train_X)
-    print(preds.shape)
-    print("TRENOVACIE")
+    # print(preds.shape)
+    # print("TRENOVACIE")
     # print("MAPE trenovacie ", mean_absolute_percentage_error(train_y, preds))
     # nsamples, nx = train_y.shape
     # train_y = train_y.reshape((nsamples, nx))
@@ -93,13 +94,13 @@ def prediction_neural_network_flask(X,market):
     # nsamples, nx = preds.shape
     # preds = preds.reshape((nsamples, nx))
     preds = scaler.inverse_transform(preds)
-    print("MAPE trenovacich ", mean_absolute_percentage_error(train_y, preds))
+    # print("MAPE trenovacich ", mean_absolute_percentage_error(train_y, preds))
 
-    print("> Compilation Time : ", time.time() - start)
+    # print("> Compilation Time : ", time.time() - start)
     preds = model.predict(test_X)
-    print(preds)
+    # print(preds)
     # preds.to_csv('preds.csv',sep=" ")
-    print("TESTOVACIE")
+    # print("TESTOVACIE")
 
     # print("MAPE testovacie nenormalizovane", mean_absolute_percentage_error(train_y, preds))
     # nsamples, nx = test_y.shape
@@ -114,7 +115,7 @@ def prediction_neural_network_flask(X,market):
     test_y = test_y.ravel()
 
     MAPE = mean_absolute_percentage_error(test_y, preds)
-    print("MAPE testovacie ", MAPE)
+    # print("MAPE testovacie ", MAPE)
 
     # print("RMSE je ", math.sqrt(mean_squared_error(actuals,preds)))
 
@@ -122,7 +123,7 @@ def prediction_neural_network_flask(X,market):
     preds = scaler.inverse_transform(preds)
 
     preds = preds.ravel()
-    print("NEXT VALUES: ", preds)
+    # print("NEXT VALUES: ", preds)
     return model,MAPE, preds
 
 def main():
